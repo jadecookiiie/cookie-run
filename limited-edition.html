@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Limited Edition Cookies</title>
+  <link href="https://fonts.googleapis.com/css2?family=Didact+Gothic&display=swap" rel="stylesheet">
+  <style>
+    body {
+      background-color: #f7f1e3;
+      font-family: 'Didact Gothic', sans-serif;
+      margin: 0;
+      padding: 20px;
+      color: #333333;
+      text-align: center;
+    }
+
+    .custom-dropdown {
+      position: relative;
+      display: inline-block;
+      margin-bottom: 20px;
+    }
+
+    .menu-btn {
+      background-color: #ff94b9;
+      color: white;
+      padding: 10px 18px;
+      font-size: 16px;
+      font-weight: bold;
+      border-radius: 8px;
+      border: none;
+      outline: none;
+      box-shadow: none;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+
+    .menu-btn:hover {
+      background-color: #e87fa4;
+    }
+
+    .menu-items {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      margin-top: 6px;
+      background-color: #ffffff;
+      min-width: 180px;
+      border-radius: 8px;
+      box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15);
+      z-index: 999;
+      overflow: hidden;
+      text-align: left;
+    }
+
+    .menu-items a {
+      color: #333333;
+      padding: 12px 16px;
+      text-decoration: none;
+      display: block;
+      font-size: 14px;
+    }
+
+    .menu-items a:hover {
+      background-color: #f5f5f5;
+    }
+
+    .custom-dropdown:hover .menu-items {
+      display: block;
+    }
+
+    h1 {
+      color: #9d00ff;
+      font-size: 2.5rem;
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+
+    .subtext {
+      font-size: 1.1rem;
+      color: #555555;
+      margin-bottom: 25px;
+    }
+
+    .badge-counter {
+      display: inline-block;
+      background-color: #000000;
+      color: #9d00ff;
+      font-weight: bold;
+      padding: 6px 18px;
+      border-radius: 20px;
+      border: 2px solid #ff94b9;
+      font-size: 0.95rem;
+      margin-bottom: 40px;
+    }
+
+    .cookie-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 10px;
+    }
+
+    .cookie-card {
+      background-color: #ffffff;
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+      border: 1px solid #f0e0d0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .cookie-card img {
+      max-width: 120px;
+      height: auto;
+      margin-bottom: 15px;
+    }
+
+    .cookie-title {
+      font-size: 1.2rem;
+      font-weight: bold;
+      margin-bottom: 8px;
+    }
+
+    .costume-tag {
+      background-color: #fff0f5;
+      color: #ff94b9;
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 0.85rem;
+      font-weight: bold;
+      margin-top: 5px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="custom-dropdown">
+    <button class="menu-btn">Menu &#9660;</button>
+    <div class="menu-items">
+      <a href="index.html">Cookie Database</a>
+      <a href="limited-edition.html">Limited Edition</a>
+      <a href="#cookie-sticks">100 Cookie Sticks</a>
+      <a href="#master-journal">Master Journal</a>
+    </div>
+  </div>
+
+  <h1>Limited Edition Cookies & Costumes</h1>
+  <p class="subtext">Look at what's limited edition right now!</p>
+  
+  <div class="badge-counter">
+    Limited Cookies: 0
+  </div>
+
+  <div class="cookie-grid">
+    
+    <div class="cookie-card">
+      <img src="https://via.placeholder.com/120" alt="Limited Cookie Placeholder">
+      <div class="cookie-title">Limited Cookie Name</div>
+      <div class="costume-tag">Exclusive Event</div>
+    </div>
+
+  </div>
+
+</body>
+</html>

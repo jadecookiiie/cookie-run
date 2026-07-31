@@ -169,70 +169,10 @@
             font-size: 11px;
             color: #333;
         }
-        .global-dropdown {
-          position: fixed;
-          top: 20px;
-          right: 20px;
-          z-index: 9999;
-        }
-
-        .dropbtn {
-          background-color: #ff94b9;
-          color: white;
-          padding: 10px 18px;
-          font-size: 16px;
-          border: none;
-          border-radius: 8px;
-          cursor: pointer;
-          font-weight: bold;
-          box-shadow: 0 4px 8px rgba(0,0,0,0.15);
-        }
-
-        .dropdown-content {
-          display: none;
-          position: absolute;
-          left: 0; 
-          top: 100%;
-          background-color: #ffffff;
-          min-width: 180px;
-          box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.15);
-          border-radius: 8px;
-          z-index: 1000;
-          overflow: hidden;
-        }
-
-        .dropdown-content a {
-          color: #333333;
-          padding: 12px 16px;
-          text-decoration: none;
-          display: block;
-          font-family: sans-serif;
-          transition: background-color 0.2s;
-        }
-
-        .dropdown-content a:hover {
-          background-color: #f1f1f1;
-        }
-
-        .global-dropdown:hover .dropdown-content {
-          display: block;
-        }
-
-        .global-dropdown:hover .dropbtn {
-          background-color: #e87fa4;
-        }
     </style>
 </head>
 <body>
-    <div class="global-dropdown">
-        <button class="dropbtn">Menu &#9660;</button>
-        <div class="dropdown-content">
-            <a href="#database">Cookie Database</a>
-            <a href="#cookie-sticks">100 Cookie Sticks</a>
-            <a href="#master-journal">Master Journal</a>
-            <a href="#about">About</a>
-        </div>
-        
+
 <div class="container">
     <header>
         <h1>Cookie Run Database</h1>
@@ -425,7 +365,7 @@
             rarity: "Epic",
             type: "Support",
             position: "Rear",
-            image: "https://cdn.wikimg.net/en/cookierunwiki/images/thumb/c/cf/Crk_illustration_caramel_choux.png/800px-Crk_illustration_caramel_choux.png",
+            image: "https://static.wikia.nocookie.net/cookierunkingdom/images/b/b6/Caramel_choux_illustration.png/revision/latest/scale-to-width-down/1000?cb=20240328172027",
             skill: {
                 name: "I've Got Choux",
                 description: "Caramel Choux Cookie uses I've Got Choux to heal allies. She applies DMG Resist, Amplify Buff to targets receiving healing, and applies an HP Shield to an ally Cookie with the lowest Max HP. As the Town Square supervisor, Caramel Choux Cookie applies the Friendly Helper buff to all ally Cookies when entering battle. While Caramel Choux Cookie is using her skill, she will briefly become resistant to interrupting effects."
@@ -1733,7 +1673,6 @@
 
                     <div class="costume-heading">Costumes</div>
                     <div class="costume-list">${costumesHTML}</div>
-                    
                 </div>
             `;
             grid.appendChild(card);
@@ -1752,6 +1691,5 @@
 
     displayCookies(cookieDatabase);
 </script>
-
 </body>
 </html>

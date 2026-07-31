@@ -169,20 +169,23 @@
             font-size: 11px;
             color: #333;
         }
+        .global-dropdown {
+          position: fixed;
+          top: 20px;
+          right: 20px;
+          z-index: 9999;
+        }
+
         .dropbtn {
           background-color: #ff94b9;
           color: white;
-          padding: 10px 16px;
+          padding: 10px 18px;
           font-size: 16px;
           border: none;
           border-radius: 8px;
           cursor: pointer;
           font-weight: bold;
-        }
-
-        .dropdown {
-          position: relative;
-          display: inline-block;
+          box-shadow: 0 4px 8px rgba(0,0,0,0.15);
         }
 
         .dropdown-content {
@@ -193,7 +196,6 @@
           min-width: 180px;
           box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.15);
           border-radius: 8px;
-          z-index: 1000;
           overflow: hidden;
         }
 
@@ -210,11 +212,11 @@
           background-color: #f1f1f1;
         }
 
-        .dropdown:hover .dropdown-content {
+        .global-dropdown:hover .dropdown-content {
           display: block;
         }
 
-        .dropdown:hover .dropbtn {
+        .global-dropdown:hover .dropbtn {
           background-color: #e87fa4;
         }
     </style>
@@ -1722,14 +1724,14 @@
                     <div class="costume-heading">Costumes</div>
                     <div class="costume-list">${costumesHTML}</div>
 
-                    <div class="dropdown">
+                    <div class="global-dropdown">
                       <button class="dropbtn">Menu &#9660;</button>
                       <div class="dropdown-content">
                         <a href="#database">Cookie Database</a>
                         <a href="#cookie-sticks">100 Cookie Sticks</a>
                         <a href="#master-journal">Master Journal</a>
                         <a href="#about">About</a>
-                   </div>
+                      </div>
                 </div>
             `;
             grid.appendChild(card);

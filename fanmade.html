@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="https://static.wikia.nocookie.net/cookie-run-kingdom-ocs/images/7/78/Fanon_First_Soulstone.png/revision/latest/scale-to-width-down/35?cb=20250824031532">
+    <title>Cookie Run Fanmade Database</title>
+    <link href="https://fonts.googleapis.com/css2?family=Didact+Gothic&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #f7f1e3;
+            --card-bg: #ffffff;
+            --text-color: #2c3e50;
+            --accent-color: #ffb142;
+            --border-radius: 12px;
+        }
+
+        body {
+            font-family: 'Didact Gothic', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 20px;
+            letter-spacing: 0.5px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        h1 {
+            margin-bottom: 5px;
+            color: #ae00ff;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .search-box {
+            width: 100%;
+            padding: 12px;
+            font-size: 16px;
+            border: 2px solid #ccae62;
+            border-radius: var(--border-radius);
+            margin-bottom: 30px;
+            box-sizing: border-box;
+        }
+
+        .cookie-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 25px;
+        }
+
+        .cookie-card {
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            overflow: hidden;
+            border: 1px solid #e0e0e0;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .cookie-hero {
+            position: relative;
+            background: #f1f2f6;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .cookie-img {
+            max-width: 130px;
+            height: auto;
+            object-fit: contain;
+        }
+
+        .rarity-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            color: white;
+            padding: 4px 12px;
+            font-size: 12px;
+            font-weight: bold;
+            border-radius: 20px;
+            text-transform: uppercase;
+        }
+
+        .rarity-common { background-color: #a88a5d; }
+        .rarity-rare { background-color: #5b5bb5; }
+        .rarity-epic { background-color: #fc0865; }
+        .rarity-super-epic { background-color: #c26c4f; }
+        .rarity-dragon { background-color: #fa5f05; }
+        .rarity-ancient { background-color: #a702e8; }
+        .rarity-legendary { background-color: #02e8af; color: #2c3e50; }
+        .rarity-beast { background-color: #6e0303; }
+        .rarity-special { background-color: #f1c40f; color: #2c3e50; }
+        .rarity-wiiwiipiipii { background-color: #a1eb0e; }
+        .rarity-witch { background-color: #d905fa; }
+        }
+
+        .cookie-info {
+            padding: 20px;
+            flex-grow: 1;
+        }
+
+        .cookie-meta {
+            font-size: 14px;
+            color: #7f8c8d;
+            margin-bottom: 15px;
+        }
+
+        .skill-section {
+            background: #f8f9fa;
+            border-left: 4px solid var(--accent-color);
+            padding: 10px;
+            border-radius: 4px;
+            margin-bottom: 15px;
+        }
+
+        .skill-name {
+            font-weight: bold;
+            font-size: 14px;
+            margin-bottom: 4px;
+        }
+
+        .skill-desc {
+            font-size: 13px;
+            color: #57606f;
+        }
+
+        .costume-heading {
+            font-size: 14px;
+            font-weight: bold;
+            margin-top: 15px;
+            border-top: 1px solid #eee;
+            padding-top: 10px;
+        }
+
+        .costume-list {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin-top: 8px;
+        }
+
+        .costume-item {
+            text-align: center;
+            background: #fafafa;
+            border: 1px solid #f0f0f0;
+            border-radius: 6px;
+            padding: 5px;
+        }
+
+        .costume-img {
+            width: 50px;
+            height: 50px;
+            object-fit: contain;
+            display: block;
+            margin: 0 auto 4px auto;
+            background: #eee;
+            border-radius: 4px;
+        }
+
+        .costume-name {
+            font-size: 11px;
+            color: #333;
+        }
+        .custom-dropdown {
+          position: relative;
+          display: inline-block;
+        }
+
+        .menu-btn {
+          background-color: #ff94b9;
+          color: white;
+          padding: 10px 18px;
+          font-size: 16px;
+          font-weight: bold;
+          border-radius: 8px;
+          border: none;
+          outline: none;
+          box-shadow: none;
+          cursor: pointer;
+        }
+
+        .menu-btn:hover {
+          background-color: #e87fa4;
+        }
+
+        .menu-items {
+          display: none;
+          position: absolute;
+          top: 100%;
+          left: 0;
+          margin-top: 6px;
+          background-color: #ffffff;
+          min-width: 180px;
+          border-radius: 8px;
+          box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15);
+          z-index: 999;
+          overflow: hidden;
+        }
+
+        .menu-items a {
+          color: #333333;
+          padding: 12px 16px;
+          text-decoration: none;
+          display: block;
+          font-family: sans-serif;
+          font-size: 14px;
+        }
+
+        .menu-items a:hover {
+          background-color: #f5f5f5;
+        }
+
+        .custom-dropdown:hover .menu-items {
+          display: block;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+    <div class="custom-dropdown">
+      <button class="menu-btn">Menu &#9660;</button>
+      <div class="menu-items">
+        <a href="index.html">Cookie Run: Kingdom Database</a>
+        <a href="limited-edition.html">Limited Edition Cookies & Costumes</a>
+        <a href="cookie-sticks.html">100 Cookie Sticks</a>
+        <a href="fanmade.html">Cookie Run Fanmade Database</a>
+      </div>
+    </div>
+        <h1>Cookie Run Fanmade Database</h1>
+        <p>All Cookies here are fanmade. 10 new Cookies each Saturday! To submit your own, copy and paste this link: https://forms.gle/j5HuPwheiyhddRPF9</p>
+        <div id="cookieCounter" style="margin-top: 10px; margin-bottom: 20px; font-weight: bold; color: #c300ff; background: #000; display: inline-block; padding: 4px 15px; border-radius: 15px; border: 1px solid #f5026b; font-size: 14px;">
+            Total Cookies: <span id="counterNumber">100</span>
+        </div>
+    <input type="text" id="searchInput" class="search-box" placeholder="Search Cookies by name, type, or rarity...">
+
+    <div class="cookie-grid" id="cookieGrid"></div>
+</div>
+
+<script>
+    const cookieDatabase = [
+        {
+            name: "Period Cookie - Luna",
+            rarity: "Epic",
+            type: "Magic",
+            position: "Rear",
+            image: "https://cdn.corenexis.com/f/DM4wSzsYJsV.png",
+            skill: {
+                name: "The Final Sentence",
+                description: "Period Cookie slams his staff into the ground, creating a massive ink-blot zone on the battlefield. Enemies caught in the ink blot are inflicted with a unique debuff that freezes their cooldowns for 3 seconds. If an enemy’s HP is below 15% when the ability strikes, the damage is doubled to 'Finish the Chapter'."
+                   },
+            costumes: [
+            ]
+        },
+        {
+            name: "Lapis Cookie - Roku",
+            rarity: "Wiiwiipiipii",
+            type: "Ambush",
+            position: "Front",
+            image: "https://cdn.corenexis.com/f/FFh8FZODeau.png",
+            skill: {
+                name: "Diamond Spear",
+                description: "The Spear Of Diamond was not to be messed with. Lapis Cookie swings with brutal force at the enemy, which inflicts Zap on the three closest enemies. The 3 enemies close enough to get hit by Diamond Spear are effected and get debuffed and weakened for at least 5 seconds. If one of the 3 enemies that got hit by the ability dies, the other two have 10% of their HP lost and given to the rest of Lapis Cookie's team to heal them after the 'War'."
+                   },
+            costumes: [
+            ]
+        },
+        {
+            name: "Strawberry Frosting Cookie - Headphoneanimations & Jackie Jam",
+            rarity: "Rare",
+            type: "Support",
+            position: "Rear",
+            image: "https://static.wikia.nocookie.net/cookie-run-kingdom-ocs/images/8/89/SFC_Illustration.png/revision/latest/scale-to-width-down/1000?cb=20250918234116",
+            skill: {
+                name: "Sweet Candy!",
+                description: "?"
+                   },
+            costumes: [
+            ]
+        },
+        {
+            name: "Autumn Queen Cookie - Billys1",
+            rarity: "Common",
+            type: "Ambush",
+            position: "Middle",
+            image: "https://static.wikia.nocookie.net/cookie-run-kingdom-ocs/images/4/42/Autumn_Queen_Cookie.png/revision/latest?cb=20240425025723",
+            skill: {
+                name: "Hook Puller",
+                description: "Pull a rear cookie or middle cookie to the front making them be more likely to take damage."
+                   },
+            costumes: [
+            ]
+        },
+        {
+            name: "Bamboo Shoot Cookie - Oystersz",
+            rarity: "Common",
+            type: "Ambush",
+            position: "Front",
+            image: "https://static.wikia.nocookie.net/cookie-run-kingdom-ocs/images/1/15/Bambooill.png/revision/latest?cb=20250124180835",
+            skill: {
+                name: "Bamboo Charge!",
+                description: "Thrusts her bamboo spear into her opponents, as she slices them, it causes a bleeding effect and extra damage to enemies Infront of her."
+                   },
+            costumes: [
+            ]
+        },
+        {
+            name: "Blueberry Yogurt Cookie - Headphoneanimations",
+            rarity: "Common",
+            type: "Bomber",
+            position: "Rear",
+            image: "https://static.wikia.nocookie.net/cookie-run-kingdom-ocs/images/8/80/BYC_Gacha_illustration.png/revision/latest/scale-to-width-down/1000?cb=20260315195652",
+            skill: {
+                name: "Blueberry Blast!",
+                description: "Time for some action! Blueberry Yogurt Cookie throws multiple Blueberry Bombs depending on how many Cookies are there in the team. Once they hit a cookie, they explode and give the enemies the stun and MOV SPD debuff."
+                   },
+            costumes: [
+            ]
+        },
+        {
+            name: "Cornstarch Cookie - Paprika",
+            rarity: "Common",
+            type: "Support",
+            position: "Rear",
+            image: "https://static.wikia.nocookie.net/cookie-run-kingdom-ocs/images/2/25/CornstarchStand.png/revision/latest/scale-to-width-down/1000?cb=20260206194455",
+            skill: {
+                name: "Specially Made For You!",
+                description: "Shares baked treats with allies, healing them, applying a HP Shield, and increasing regular DMG."
+                   },
+            costumes: [
+            ]
+        },
+        {
+            name: "Earth Piece Kicker Cookie - Billys1",
+            rarity: "Common",
+            type: "Ranged",
+            position: "Rear",
+            image: "https://static.wikia.nocookie.net/cookie-run-kingdom-ocs/images/5/51/Earth_Piece_Kicker_Cookie.png/revision/latest?cb=20240422044634",
+            skill: {
+                name: "Piece Havoc",
+                description: "Kicking many pieces at once doing mass destruction!"
+                   },
+            costumes: [
+            ]
+        },
+        {
+            name: "GingerBurnt - HateLove12",
+            rarity: "Common",
+            type: "Support",
+            position: "Rear",
+            image: "https://static.wikia.nocookie.net/cookie-run-kingdom-ocs/images/a/af/Gingerburnt_%28Gacha%29.png/revision/latest?cb=20250302105216",
+            skill: {
+                name: "Hearth's Help",
+                description: "GingerBurnt upgrades the attack of the nearest ally, making their attack cause the Burn status effect. Those affected with this skill will flicker with small embers."
+                   },
+            costumes: [
+            ]
+        },
+        {
+            name: "Neapolitan Cookie - Ace",
+            rarity: "Common",
+            type: "Support",
+            position: "Rear",
+            image: "https://static.wikia.nocookie.net/cookie-run-kingdom-ocs/images/1/1d/NeaCookieILL.png/revision/latest?cb=20260428204318",
+            skill: {
+                name: "Sweet Treat Splash",
+                description: "Uses her magic to grant a random buff to all allies, including herself."
+                   },
+            costumes: [
+            ]
+        },
+    ];
+
+    function displayCookies(cookies) {
+    const counterSpan = document.getElementById('counterNumber');
+        if (counterSpan) {
+            counterSpan.innerText = cookies.length;
+        }
+        const grid = document.getElementById('cookieGrid');
+        grid.innerHTML = "";
+
+        if(cookies.length === 0) {
+            grid.innerHTML = "<p style='grid-column: 1/-1; text-align:center;'>No Cookies fit that description. What else can you think of about them?</p>";
+            return;
+        }
+
+        cookies.forEach(cookie => {
+            let costumesHTML = '';
+            if(cookie.costumes && cookie.costumes.length > 0) {
+                cookie.costumes.forEach(costume => {
+                    costumesHTML += `
+                        <div class="costume-item">
+                            <img class="costume-img" src="${costume.image}" alt="${costume.name}">
+                            <div class="costume-name">${costume.name}</div>
+                        </div>
+                    `;
+                });
+            } else {
+                costumesHTML = '<p style="font-size:12px; color:#aaa; margin:0;">No costumes added yet! Maybe later?</p>';
+            }
+
+            const card = document.createElement('div');
+            const rarityClass = `rarity-${cookie.rarity.toLowerCase().replace(' ', '-')}`;
+            card.className = 'cookie-card';
+            card.innerHTML = `
+                <div class="cookie-hero">
+                    <span class="rarity-badge ${rarityClass}">${cookie.rarity}</span>
+                    <img class="cookie-img" src="${cookie.image}" alt="${cookie.name}">
+                </div>
+                <div class="cookie-info">
+                    <h2 style="margin: 0 0 5px 0; font-size: 20px;">${cookie.name}</h2>
+                    <div class="cookie-meta"><strong>${cookie.type}</strong> • ${cookie.position} Line</div>
+                    
+                    <div class="skill-section">
+                        <div class="skill-name">${cookie.skill.name}</div>
+                        <div class="skill-desc">${cookie.skill.description}</div>
+                    </div>
+
+                    <div class="costume-heading">Costumes</div>
+                    <div class="costume-list">${costumesHTML}</div>
+                </div>
+            `;
+            grid.appendChild(card);
+        });
+    }
+
+    document.getElementById('searchInput').addEventListener('input', function(e) {
+        const query = e.target.value.toLowerCase();
+        const filtered = cookieDatabase.filter(cookie => 
+            cookie.name.toLowerCase().includes(query) ||
+            cookie.type.toLowerCase().includes(query) ||
+            cookie.rarity.toLowerCase().includes(query)
+        );
+        displayCookies(filtered);
+    });
+
+    displayCookies(cookieDatabase);
+</script>
+</body>
+</html>

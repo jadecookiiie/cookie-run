@@ -1,0 +1,1448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="https://cdn.wikimg.net/en/cookierunwiki/images/d/da/Cr_grade_s%2B.png">
+    <title>Cookie Run: Classic Database</title>
+    <link href="https://fonts.googleapis.com/css2?family=Didact+Gothic&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #f7f1e3;
+            --card-bg: #ffffff;
+            --text-color: #2c3e50;
+            --accent-color: #ffb142;
+            --border-radius: 12px;
+        }
+
+        body {
+            font-family: 'Didact Gothic', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 20px;
+            letter-spacing: 0.5px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        h1 {
+            margin-bottom: 5px;
+            color: #ae00ff;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .search-box {
+            width: 100%;
+            padding: 12px;
+            font-size: 16px;
+            border: 2px solid #ccae62;
+            border-radius: var(--border-radius);
+            margin-bottom: 30px;
+            box-sizing: border-box;
+        }
+
+        .cookie-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 25px;
+        }
+
+        .cookie-card {
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            overflow: hidden;
+            border: 1px solid #e0e0e0;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .cookie-hero {
+            position: relative;
+            background: #f1f2f6;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .cookie-img {
+            max-width: 130px;
+            height: auto;
+            object-fit: contain;
+        }
+
+        .rarity-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            color: white;
+            padding: 4px 12px;
+            font-size: 12px;
+            font-weight: bold;
+            border-radius: 20px;
+            text-transform: uppercase;
+        }
+
+        .rarity-c { background-color: #d9d9d9; color: #8a8a8a; }
+        .rarity-b { background-color: #b2b2eb; color: #5b5bb5; }
+        .rarity-a { background-color: #f1c40f; color: #ff0000; }
+        .rarity-s { background-color: #d905fa; }
+        .rarity-s-plus { background-color: #a702e8; }
+        .rarity-l { background-color: #ff0000; }
+        .rarity-e { background-color: #32a852; color: #f1c40f; }
+
+        .cookie-info {
+            padding: 20px;
+            flex-grow: 1;
+        }
+
+        .ability-section {
+            background: #f8f9fa;
+            border-left: 4px solid var(--accent-color);
+            padding: 10px;
+            border-radius: 4px;
+            margin-bottom: 15px;
+        }
+
+        .ability-title {
+            font-weight: bold;
+            font-size: 12px;
+            color: #7f8c8d;
+            text-transform: uppercase;
+            margin-bottom: 4px;
+        }
+
+        .ability-desc {
+            font-size: 13px;
+            color: #57606f;
+            line-height: 1.4;
+        }
+
+        .combi-section {
+            background: #fff8e7;
+            border: 1px solid #ffeaa7;
+            border-radius: 6px;
+            padding: 10px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .combi-img {
+            width: 45px;
+            height: 45px;
+            object-fit: contain;
+            background: #fff;
+            border-radius: 50%;
+            border: 1px solid #fdcb6e;
+            padding: 2px;
+        }
+
+        .combi-details {
+            font-size: 13px;
+        }
+
+        .combi-label {
+            font-size: 11px;
+            font-weight: bold;
+            color: #d63031;
+            text-transform: uppercase;
+        }
+
+        .combi-name {
+            font-weight: bold;
+            color: #2d3436;
+        }
+
+        .costume-heading {
+            font-size: 14px;
+            font-weight: bold;
+            margin-top: 15px;
+            border-top: 1px solid #eee;
+            padding-top: 10px;
+        }
+
+        .costume-list {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin-top: 8px;
+        }
+
+        .costume-item {
+            text-align: center;
+            background: #fafafa;
+            border: 1px solid #f0f0f0;
+            border-radius: 6px;
+            padding: 5px;
+        }
+
+        .costume-img {
+            width: 50px;
+            height: 50px;
+            object-fit: contain;
+            display: block;
+            margin: 0 auto 4px auto;
+            background: #eee;
+            border-radius: 4px;
+        }
+
+        .costume-name {
+            font-size: 11px;
+            color: #333;
+        }
+
+        .custom-dropdown {
+          position: relative;
+          display: inline-block;
+        }
+
+        .menu-btn {
+          background-color: #ff94b9;
+          color: white;
+          padding: 10px 18px;
+          font-size: 16px;
+          font-weight: bold;
+          border-radius: 8px;
+          border: none;
+          outline: none;
+          box-shadow: none;
+          cursor: pointer;
+        }
+
+        .menu-btn:hover {
+          background-color: #e87fa4;
+        }
+
+        .menu-items {
+          display: none;
+          position: absolute;
+          top: 100%;
+          left: 0;
+          margin-top: 6px;
+          background-color: #ffffff;
+          min-width: 180px;
+          border-radius: 8px;
+          box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15);
+          z-index: 999;
+          overflow: hidden;
+        }
+
+        .menu-items a {
+          color: #333333;
+          padding: 12px 16px;
+          text-decoration: none;
+          display: block;
+          font-family: sans-serif;
+          font-size: 14px;
+        }
+
+        .menu-items a:hover {
+          background-color: #f5f5f5;
+        }
+
+        .custom-dropdown:hover .menu-items {
+          display: block;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+    <div class="custom-dropdown">
+      <button class="menu-btn">Menu &#9660;</button>
+      <div class="menu-items">
+        <a href="classic.html">Cookie Run: Classic Database</a>
+        <a href="index.html">Cookie Run: Kingdom Database</a>
+        <a href="limited-edition.html">Limited Edition Cookies & Costumes</a>
+        <a href="cookie-sticks.html">100 Cookie Sticks</a>
+        <a href="fanmade.html">Cookie Run Fanmade Database</a>
+      </div>
+    </div>
+        <h1>Cookie Run: Classic Database</h1>
+        <p>Wondering which Cookies are in Cookie Run: Classic or not? Come find out here!</p>
+        <div id="cookieCounter" style="margin-top: 10px; margin-bottom: 20px; font-weight: bold; color: #c300ff; background: #000; display: inline-block; padding: 4px 15px; border-radius: 15px; border: 1px solid #f5026b; font-size: 14px;">
+            Total Cookies: <span id="counterNumber">0</span>
+        </div>
+    </header>
+    
+    <input type="text" id="searchInput" class="search-box" placeholder="Search Cookies by name, rarity, or combi bonus...">
+
+    <div class="cookie-grid" id="cookieGrid"></div>
+</div>
+
+<script>
+    const cookieDatabase = [
+        {
+            name: "Moonlight Cookie (Based off Costume below)",
+            rarity: "E",
+            image: "",
+            ability: "There's no data about it. If you'd like, take a screenshot of Cookie Run: Classic with the data and send the image URL in this Google Forms: https://forms.gle/anbnPZqEDgiP2Ea56",
+            combiBonus: {
+                name: "???",
+                image: "https://cdn.corenexis.com/f/qQDtZ0JRblD.png"
+            },
+            costumes: [
+                { name: "Veiled Lady of Moonlight", image: "https://cdn.corenexis.com/f/9QoK0d12jyX.gif" }
+            ]
+        },
+        {
+            name: "Wind Archer Cookie (Based off Costume below)",
+            rarity: "E",
+            image: "",
+            ability: "There's no data about it. If you'd like, take a screenshot of Cookie Run: Classic with the data and send the image URL in this Google Forms: https://forms.gle/anbnPZqEDgiP2Ea56",
+            combiBonus: {
+                name: "???",
+                image: "https://cdn.corenexis.com/f/qQDtZ0JRblD.png"
+            },
+            costumes: [
+                { name: "Windward Marksman", image: "https://cdn.wikimg.net/en/cookierunwiki/images/b/bd/Cr_the_hwarang_that_bears_the_guardian_winds_extra_3.gif" }
+            ]
+        },
+        {
+            name: "Blooming Dancheong Cookie",
+            rarity: "L",
+            image: "https://cdn.wikimg.net/en/cookierunwiki/images/9/9e/Cr_standard_blooming_dancheong.png",
+            ability: "The small blue gauge charges over time. When it is full, Plum Blossom Jellies grow, charging the green gauge a little. When the green gauge is full, Plum Blossom Dragons fly by, turning basic Jellies into Plum Blossom Jellies and Coins.",
+            combiBonus: {
+                name: "There's none right now!",
+                image: "https://cdn.corenexis.com/f/qQDtZ0JRblD.png"
+            },
+            costumes: [
+            ]
+        },
+        {
+            name: "Candied Yam Cookie",
+            rarity: "L",
+            image: "https://cdn.wikimg.net/en/cookierunwiki/images/0/04/Cr_standard_candied_yam.png",
+            ability: "The small blue gauge charges over time. When it is full, Candied Yams falls from the sky and create Candied Yam Jellies. Each activation fills the green gauge a little. When the green gauge is full, Candied Yam Cookie enters an enlightened state and creates Sacred Bear Jellies that are drawn towards her by the power of enlightenment.",
+            combiBonus: {
+                name: "There's none right now!",
+                image: "https://cdn.corenexis.com/f/qQDtZ0JRblD.png"
+            },
+            costumes: [
+            ]
+        },
+        {
+            name: "Fire Spirit Cookie",
+            rarity: "L",
+            image: "https://cdn.wikimg.net/en/cookierunwiki/images/a/a2/Cr_standard_fire_spirit.png",
+            ability: "Revives by turning into a fire spirit for a set time. Earns bonus points for Jellies gathered in this form. (6 Revives with 35 HP)",
+            combiBonus: {
+                name: "There's none right now!",
+                image: "https://cdn.corenexis.com/f/qQDtZ0JRblD.png"
+            },
+            costumes: [
+                { name: "Imposing Flame Magistrate", image: "https://cdn.corenexis.com/f/Sh2M42UpqiT.webp" }
+            ]
+        },
+        {
+            name: "Sea Fairy Cookie",
+            rarity: "L",
+            image: "https://cdn.wikimg.net/en/cookierunwiki/images/c/c9/Cr_standard_sea_fairy.png",
+            ability: "The green gauge charges over time. When it is full, Sea Fairy Cookie launches a powerful  Wave Blast. During Wave Blast, Wave Beads crush obstacles, creating Sea Crystal Jellies.",
+            combiBonus: {
+                name: "There's none right now!",
+                image: "https://cdn.corenexis.com/f/qQDtZ0JRblD.png"
+            },
+            costumes: [
+                { name: "Ethereal Satin", image: "https://cdn.wikimg.net/en/cookierunwiki/images/1/1f/Cr_the_ethereal_maiden_in_silk_clothes_fever_run.gif" }
+            ]
+        },
+        {
+            name: "Tiger Lily Cookie",
+            rarity: "L",
+            image: "https://cdn.wikimg.net/en/cookierunwiki/images/e/ed/Cr_standard_tiger_lily.png",
+            ability: "The small blue gauge charges over time. When it is full, Tiger Lily Cookie throws her spear, turning obstacles into grass. Jellies or HP Potions grow where the spear hits the ground. Throws the spear again immediately when picking it up from the ground. Each spear throw fills the green gauge a bit. Summons the Butter Tiger for a fast ride when the green gauge is full. (Butter Tiger counts as a riding skill.)",
+            combiBonus: {
+                name: "There's none right now!",
+                image: "https://cdn.corenexis.com/f/qQDtZ0JRblD.png"
+            },
+            costumes: [
+            ]
+        },
+        {
+            name: "Admiral Gimbap Cookie",
+            rarity: "S+",
+            image: "https://cdn.wikimg.net/en/cookierunwiki/images/4/4b/Cr_standard_admiral_gimbap.png",
+            ability: "The small blue gauge charges over time. When it is full, Admiral Gimbap Cookie's troops launch various attacks to crush obstacles and create basic jellies, filling the green gauge a little. When the green gauge is full, Admiral Gimbap Cookie rides a giant turtle, firing torpedoes to crush obstacles and create Gimbap Jellies. (Leveling up increases Gimbap Jelly Points.)",
+            combiBonus: {
+                name: "Chronicles of Run",
+                image: "https://cdn.wikimg.net/en/cookierunwiki/images/e/e0/Pet97_shop.png"
+            },
+            costumes: [
+            ]
+        },
+        {
+            name: "Pine Monk Cookie",
+            rarity: "S+",
+            image: "https://cdn.wikimg.net/en/cookierunwiki/images/5/50/Cr_standard_pine_monk.png",
+            ability: "Upon eating Sutra Jelly, unfolds the Sutra to create Pine Leaf Jellies and Coins. After eating a certian amount of Sutra Jellies, expels phantoms with a Giant Buddha Statue.",
+            combiBonus: {
+                name: "White Dragon Horsie",
+                image: "https://cdn.wikimg.net/en/cookierunwiki/images/9/9e/Cr_standard_white_dragon.png"
+            },
+            costumes: [
+            ]
+        },
+        {
+            name: "Princess Bari Cookie",
+            rarity: "S+",
+            image: "https://cdn.wikimg.net/en/cookierunwiki/images/b/b8/Cr_standard_princess_bari.png",
+            ability: "Periodically transforms Jellies into three types of Flower Jellies that fill the flower gauge. When the gauge is full, Princess Bari Cookie enters the forets of the Sacred Tree to banish spirits to the afterlife, leaving behind Spirit Jellies. Banishing a giant spirit yields a Healing Water Jelly that restores HP and triggers Blast Mode. Healing Water Jellies do not count as HP Potions. (Leveling up increases Flower Jelly Points.)",
+            combiBonus: {
+                name: "Ghoul Cake",
+                image: "https://cdn.wikimg.net/en/cookierunwiki/images/c/c6/Pet93_shop.png"
+            },
+            costumes: [
+            ]
+        },
+        {
+            name: "Adventurer Cookie",
+            rarity: "S",
+            image: "https://cdn.wikimg.net/en/cookierunwiki/images/0/07/Cr_standard_adventurer.png",
+            ability: "Discovers secret doors to an underground passage filled with Coins and possibly a Mystery Box.",
+            combiBonus: {
+                name: "Backpacky",
+                image: "https://cdn.wikimg.net/en/cookierunwiki/images/8/88/Backpacky.png"
+            },
+            costumes: [
+            ]
+        },
+        {
+            name: "Alchemist Cookie",
+            rarity: "S",
+            image: "https://cdn.wikimg.net/en/cookierunwiki/images/5/52/Cr_standard_alchemist.png",
+            ability: "The green gauge charges over time. When it is full, a Double Jump launches an Alchemist Flask that spawns Jellies depending on the currently selected type. Each jump landing toggles between the different types of alchemy. (Leveling up causes the gauge to fill up faster.)",
+            combiBonus: {
+                name: "Jelly Scale, Coin Scale",
+                image: "https://cdn.corenexis.com/f/uwPnzQJkDL7.png"
+            },
+            costumes: [
+            ]
+        },
+        {
+            name: "Angel Cookie",
+            rarity: "S",
+            image: "https://cdn.wikimg.net/en/cookierunwiki/images/a/a3/Cr_standard_angel.png",
+            ability: "Draws in Items with magnetic aura.",
+            combiBonus: {
+                name: "Celestial Star",
+                image: "https://cdn.wikimg.net/en/cookierunwiki/images/6/62/Celestial_Star.png"
+            },
+            costumes: [
+            ]
+        },
+        {
+            name: "Apple Cookie",
+            rarity: "S",
+            image: "https://cdn.wikimg.net/en/cookierunwiki/images/b/b5/Cr_standard_apple.png",
+            ability: "The green gauge charges over time. When it is full, Apple Cookie creates Alphabet Jelly Bubbles. (Some of the Bubbles are empty.) Enters a special Bonus Time where Balloon Jellies appear. Runs faster at first, but slows down when losing HP. (Leveling up makes Alphabet Jelly Bubbles appear more frequently.)",
+            combiBonus: {
+                name: "Apple Rabbit",
+                image: "https://cdn.wikimg.net/en/cookierunwiki/images/9/93/Apple_Slice_Rabbit.png"
+            },
+            costumes: [
+            ]
+        },
+        {
+            name: "Banana Cookie",
+            rarity: "S",
+            image: "https://cdn.wikimg.net/en/cookierunwiki/images/3/35/Cr_standard_banana.png",
+            ability: "The green gauge charges over time. When it is full, Banana Cookie leaves the stage to Choco the Monkey. The more hoops the monkey jumps through, the more Coins are dropped to the ground at the end of his performance.",
+            combiBonus: {
+                name: "Banana Lion",
+                image: "https://cdn.wikimg.net/en/cookierunwiki/images/2/2b/Savannahna_Lion.png"
+            },
+            costumes: [
+            ]
+        },
+        {
+            name: "Barley Sentry Cookie",
+            rarity: "S",
+            image: "https://cdn.wikimg.net/en/cookierunwiki/images/8/82/Ch80_shop_1.png",
+            ability: "Gains Magnetic Aura and points for all Jellies while shielded. Grows larger and faster with each gathered Barley Jelly. Catching a Barley Jelly fills the green gauge a little. When it is full, Barley Sentry Cookie assumes his sentry form, triggering Blast while creating Jellies and crushing obstacles. Partially restores HP at the end of the transformation.",
+            combiBonus: {
+                name: "Pegaplush",
+                image: "https://cdn.wikimg.net/en/cookierunwiki/images/a/a5/Pet92_shop.png"
+            },
+            costumes: [
+            ]
+        },
+        {
+            name: "Blackberry Cookie",
+            rarity: "S",
+            image: "https://cdn.wikimg.net/en/cookierunwiki/images/f/f3/Cr_standard_blackberry.png",
+            ability: "Spirits surrounding her eat Jellies and periodically create Blackberry Jellies. (Leveling up increases the number of Blackberry Jellies.)",
+            combiBonus: {
+                name: "Ghost Butler",
+                image: "https://cdn.wikimg.net/en/cookierunwiki/images/4/4a/Ghost_Butler.png"
+            },
+            costumes: [
+            ]
+        },
+        {
+            name: "Braised Pork Cookie",
+            rarity: "S",
+            image: "https://cdn.wikimg.net/en/cookierunwiki/images/4/48/Cr_standard_braised_pork.png",
+            ability: "The small blue gauge charges over time. When it is full, Braised Pork Cookie tills the soil to harvest Braised Pork Jellies. Each harvest fill the green gauge a little. When the green gauge is full, the Cookie whirls around the Braised Pork Pitchfork to draw in Jellies and obstacles. Jellies absorbed thusly award bonus points. Finally, Braised Pork Cookie throws the pitchfork to draw Jellies in front. (Skill activates faster the lower the remaining HP.)",
+            combiBonus: {
+                name: "Bok Choy Cushion",
+                image: "https://cdn.wikimg.net/en/cookierunwiki/images/7/77/Cr_standard_bok_choy_cushion.png"
+            },
+            costumes: [
+            ]
+        },
+        {
+            name: "Carol Cookie",
+            rarity: "S",
+            image: "https://cdn.wikimg.net/en/cookierunwiki/images/d/d6/Cr_standard_carol.png",
+            ability: "Switches songs every 7 multi jumps: Song of Life recovers HP, Song of Change turns obstacles into Jellies, Song of Abundance creates Coins. Leveling up increases frequency of song effects.",
+            combiBonus: {
+                name: "Yule Log Cake",
+                image: "https://cdn.wikimg.net/en/cookierunwiki/images/b/b9/Yule_Log_Cake.png"
+            },
+            costumes: [
+            ]
+        },
+        {
+            name: "Cheerleader Cookie",
+            rarity: "S",
+            image: "https://cdn.wikimg.net/en/cookierunwiki/images/7/79/Cr_standard_cheerleader.png",
+            ability: "A cheerleader squad comes to help after every 32 jumps, crushing obstacles and speading Coins and Jellies. Leveling up reduces the number of jumps needed and increases the time for the squad.",
+            combiBonus: {
+                name: "Glitter Ball",
+                image: "https://cdn.wikimg.net/en/cookierunwiki/images/2/2a/Glitter_Ball.png"
+            },
+            costumes: [
+            ]
+        },
+        {
+            name: "Cheesecake Cookie",
+            rarity: "S",
+            image: "https://cdn.wikimg.net/en/cookierunwiki/images/c/cf/Cr_standard_cheesecake.png",
+            ability: "Gathering 18 Invitation Jellies triggers a Coin Fireworks Party.",
+            combiBonus: {
+                name: "Fluffy Cheese Cat",
+                image: "https://cdn.wikimg.net/en/cookierunwiki/images/4/4a/Fluffy_Cheese_Cat.png"
+            },
+            costumes: [
+            ]
+        },
+        {
+            name: "Cherry Cookie",
+            rarity: "S",
+            image: "https://cdn.wikimg.net/en/cookierunwiki/images/c/c8/Cr_standard_cherry.png",
+            ability: "Throws Cherry Bombs that crush obstacles and create Cherry Jellies. Speeds up over time, but hitting an obstacle sets her back to normal speed. Leveling up grants more frequent bombs.",
+            combiBonus: {
+                name: "Rocket Firecracker",
+                image: "https://cdn.wikimg.net/en/cookierunwiki/images/f/ff/Rocket_Firecracker.png"
+            },
+            costumes: [
+            ]
+        },
+        {
+            name: "Cherry Blossom Cookie",
+            rarity: "S",
+            image: "https://cdn.wikimg.net/en/cookierunwiki/images/b/bb/Cr_standard_cherry_blossom.png",
+            ability: "The green gauge charges over time. When it is full, Cherry Blossom Cookie takes flight, creating Cherry Blossom Jellies along the way. Creates Cherry Blossom Jelly Party in Bonus Time. (Leveling up makes the gauge fill faster.)",
+            combiBonus: {
+                name: "Tea Cup",
+                image: "https://cdn.wikimg.net/en/cookierunwiki/images/9/99/Tea_Cup.png"
+            },
+            costumes: [
+            ]
+        },
+        {
+            name: "Choco Pistachio Cookie",
+            rarity: "S",
+            image: "https://cdn.wikimg.net/en/cookierunwiki/images/3/34/Cr_standard_choco_pistachio.png",
+            ability: "Periodically summons a Spiky Choco Mole that carries the Cookie forward. Movement Speed increases while riding. Landing from a Double Jump while mounted uncovers Spread Oil and creates Choco Pistachio Jellies. Counts as a riding skill.",
+            combiBonus: {
+                name: "Choco Hedgehog",
+                image: "https://cdn.wikimg.net/en/cookierunwiki/images/2/2b/Pet100_shop.png"
+            },
+            costumes: [
+            ]
+        },
+        {
+            name: "Cinnamon Cookie",
+            rarity: "S",
+            image: "https://cdn.wikimg.net/en/cookierunwiki/images/4/47/Cr_standard_cinnamon.png",
+            ability: "The green gauge charges over time. When it is full, Cinnamon Cookie performs various card tricks. Dazzles with Revival Magic when running out of HP once. (Leveling up makes the gauge fill faster.)",
+            combiBonus: {
+                name: "Cinnamon Bunny",
+                image: "https://cdn.wikimg.net/en/cookierunwiki/images/8/84/Cinnamon_Roll_Rabbit.png"
+            },
+            costumes: [
+            ]
+        },
+        {
+            name: "Cocoa Cookie",
+            rarity: "S",
+            image: "https://cdn.wikimg.net/en/cookierunwiki/images/a/a6/Cr_standard_cocoa.png",
+            ability: "Gathering HP Potions summons a flying Cocoa Mug to ride in. While flying, regular jellies turn into Cocoa Marshmallow Jellies awarding more points. Recovers more HP from Potions. (Leveling up increases flight duration and recovery amount. The Cocoa Mug counts as a riding skill.)",
+            combiBonus: {
+                name: "Marshmallow Hamster",
+                image: "https://cdn.wikimg.net/en/cookierunwiki/images/c/c4/Crob_standard_marshmallow_hamster.png"
+            },
+            costumes: [
+            ]
+        },
+        {
+            name: "Cotton Candy Cookie",
+            rarity: "S",
+            image: "https://cdn.wikimg.net/en/cookierunwiki/images/f/f1/Cr_standard_cotton_candy.png",
+            ability: "Collects a unique set of Alphabet Jellies that lead to a special Bonus Time. Touching Mail Boxes in Bonus Time creates Heart Letters. Occasionally throws away unfinished love letters that burst destroying obstacles and creating Cotton Candy Jellies. (While running, Alphabet Jellies may sometimes appear in place of basic Jellies.)",
+            combiBonus: {
+                name: "Cotton Candy Bird",
+                image: "https://cdn.wikimg.net/en/cookierunwiki/images/a/a9/Cotton_Candy_Birdie.png"
+            },
+            costumes: [
+            ]
+        },
+        {
+            name: "Cream Puff Cookie",
+            rarity: "S",
+            image: "https://cdn.wikimg.net/en/cookierunwiki/images/b/bb/Cr_standard_cream_puff.png",
+            ability: "The green gauge charges over time. When it is full, Cream Puff Cookie casts a Minor Jelly Spell to create a small amount of Jellies. Sometimes this triggers a Jelly Storm, generating a large amount of Jellies. (Leveling up makes the gauge fill faster.)",
+            combiBonus: {
+                name: "Owlcorn",
+                image: "https://cdn.wikimg.net/en/cookierunwiki/images/7/72/Owlcorn.png"
+            },
+            costumes: [
+            ]
+        },
+        {
+            name: "Cucumber Cookie",
+            rarity: "S",
+            image: "https://cdn.wikimg.net/en/cookierunwiki/images/6/6c/Cr_standard_cucumber.png",
+            ability: "Periodically casts his fishing rod to crush obstacles and collect Fish Jellies. Occasionally sits down on a lotus leaf to fish for a Big Fish Jelly. Tapping both buttons rapidly fills the green gauge, resulting in a more valuable catch. Big Fish Jellies restore a small amount of HP and create a large amount of Fish Jellies. Slower HP drain while sitting on the lotus leaf.",
+            combiBonus: {
+                name: "Cucu-dding",
+                image: "https://cdn.wikimg.net/en/cookierunwiki/images/b/bc/Cucumber_pudding_frog.png"
+            },
+            costumes: [
+            ]
+        },
+        {
+            name: "Dandelion Fairy Cookie",
+            rarity: "S",
+            image: "https://cdn.wikimg.net/en/cookierunwiki/images/1/1c/Cr_standard_dandelion_fairy.png",
+            ability: "Swings her Pom-pom Flower Stalk to create Dandelion Jelly and Pom-pom Jelly. When flying through the air on the Pom-pom Flower Stalk, touching a Pom-pom Seed causes Dandelion Seed Jellies to scatter.",
+            combiBonus: {
+                name: "Baby Spore",
+                image: "https://cdn.wikimg.net/en/cookierunwiki/images/3/38/Cr_standard_baby_spore.png"
+            },
+            costumes: [
+            ]
+        },
+        {
+            name: "Devil Cookie",
+            rarity: "S",
+            image: "https://cdn.wikimg.net/en/cookierunwiki/images/4/4e/Cr_standard_devil.png",
+            ability: "Transforms into an all-consuming Super Devil after collecting Spirit Jellies. By leveling up, fewer Spirit Jellies are required to trigger the transformation.",
+            combiBonus: {
+                name: "Flame Bat",
+                image: "https://cdn.wikimg.net/en/cookierunwiki/images/f/fa/Flame_Bat.png"
+            },
+            costumes: [
+            ]
+        },
+        {
+            name: "Dino-Sour Cookie",
+            rarity: "S",
+            image: "https://cdn.wikimg.net/en/cookierunwiki/images/a/a8/Cr_standard_dino-sour.png",
+            ability: "Picking up a Giant Jelly enlarges the Jellysaur companion instead, letting Dino-Sour Cookie ride fast atop the Jellysaur for a short time. Landing from the air while riding the Jellysaur creates Dino Paw Jellies on the ground. Landing from greater heights creates more Jellies. (Jellysaur Ride counts as a riding skill.)",
+            combiBonus: {
+                name: "Dino Egg",
+                image: "https://cdn.wikimg.net/en/cookierunwiki/images/f/fe/Dino-Egg.png"
+            },
+            costumes: [
+            ]
+        },
+        {
+            name: "Fairy Cookie",
+            rarity: "S",
+            image: "https://cdn.wikimg.net/en/cookierunwiki/images/c/c3/Cr_standard_fairy.png",
+            ability: "Creates magnetic aura which also serves as a shield",
+            combiBonus: {
+                name: "Flower Pod",
+                image: "https://cdn.wikimg.net/en/cookierunwiki/images/a/ad/Flower_Pod.png"
+            },
+            costumes: [
+            ]
+        },
+        {
+            name: "Garaetteok Cookie",
+            rarity: "S",
+            image: "https://cdn.wikimg.net/en/cookierunwiki/images/3/3b/Cr_standard_garaetteok.png",
+            ability: "The small blue gauge charges over time. When it is full, Double Jumping causes Garaetteok Cookie to strike the ground, destroying obstacles, creating Garaetteok Jellies and filling the green gauge a little. When the green gauge is full, Garaetteok Cookie flies ahead surrounded by totem underlings, passing through obstacles to earn Evasion Points.",
+            combiBonus: {
+                name: "Sotdae Flock",
+                image: "https://cdn.wikimg.net/en/cookierunwiki/images/3/36/Cr_standard_sotdae_flock_pet.png"
+            },
+            costumes: [
+            ]
+        },
+        {
+            name: "General Jujube Cookie",
+            rarity: "S",
+            image: "https://cdn.wikimg.net/en/cookierunwiki/images/d/dc/Cr_standard_general_jujube.png",
+            ability: "The green gauge charges over time. When it is full, General Jujube Cookie rides his Red Jujube Horse, crushing obstacles as arrows fly towards him. While Riding, a Candy Scimitar button replaces the Slide button, which crushes obstacles and creates Jujube Slice Jellies. (Horseback Riding counts as a riding skill. Leveling up makes the gauge fill faster.)",
+            combiBonus: {
+                name: "Uncooling Teacup",
+                image: "https://cdn.wikimg.net/en/cookierunwiki/images/6/69/Uncooling_Teacup.png"
+            },
+            costumes: [
+            ]
+        },
+        {
+            name: "Gulab Jamun Cookie",
+            rarity: "S",
+            image: "https://cdn.wikimg.net/en/cookierunwiki/images/4/40/Cr_standard_gulab_jamun.png",
+            ability: "The green gauge charges over time. When it is full, Gulab Jamun Cookie starts a festival, dancing to the music, setting off color splashes, and creating Gulab Jamun Jellies and Coins. The more Gulab Jamun Jellies are collected, the greater the color splash. (Leveling up increases Gulab Jamun Jelly Points.)",
+            combiBonus: {
+                name: "Tiny Tabla",
+                image: "https://cdn.wikimg.net/en/cookierunwiki/images/8/8e/Tiny_Tabla.png"
+            },
+            costumes: [
+            ]
+        },
+        {
+            name: "Gumball Cookie",
+            rarity: "S",
+            image: "https://cdn.wikimg.net/en/cookierunwiki/images/5/57/Cr_standard_gumball.png",
+            ability: "Loads gumballs while jumping and shoots while sliding. The shots crush obstacles and earn shot points. Consecutive shots increase shot points. Up to 20 gumballs can be loaded at a time. (Leveling up increases the amount of shot points earned.)",
+            combiBonus: {
+                name: "Mini Jackson No. 2",
+                image: "https://cdn.wikimg.net/en/cookierunwiki/images/f/f7/Mini_Jackson_No._2.png"
+            },
+            costumes: [
+            ]
+        },
+        {
+            name: "Herb Cookie",
+            rarity: "S",
+            image: "https://cdn.wikimg.net/en/cookierunwiki/images/e/ef/Cr_standard_herb.png",
+            ability: "A water gauge appears above Herb Cookie's head. Rain and Sun Jellies appear periodically. Picking up Rain Jellies causes rain, filling up the water gauge. When the gauge is full, picking up a Sun Jelly brings out the sun to turn regular Jellies into Sprout Jellies. Slower HP drain. (Leveling up makes Rain and Sun Jellies appear more frequently.)",
+            combiBonus: {
+                name: "Herb Teapot",
+                image: "https://cdn.wikimg.net/en/cookierunwiki/images/d/df/Herb_Teapot.png"
+            },
+            costumes: [
+            ]
+        },
+        {
+            name: "Hero Cookie",
+            rarity: "S",
+            image: "https://cdn.wikimg.net/en/cookierunwiki/images/7/75/Cr_standard_hero.png",
+            ability: "The green gauge charges over time. When it is full, Hero Cookie puts on his Caramel Syrup Suit for a flying blast with magnetic effect and slower HP drain.",
+            combiBonus: {
+                name: "Jellyco Cube",
+                image: "https://cdn.wikimg.net/en/cookierunwiki/images/2/2f/Jellyco_Cube.png"
+            },
+            costumes: [
+            ]
+        },
+        {
+            name: "Kaju Katli Cookie",
+            rarity: "S",
+            image: "https://cdn.wikimg.net/en/cookierunwiki/images/3/3d/Cr_standard_kaju_katli.png",
+            ability: "The green gauge charges over time. When it is full, Kaju Katli Cookie throws his spear, crushing obstacles and creating Kaju Katli Jellies in their place. Picking up the spear triggers Blats Mode while flinging it around. (Leveling up increases Kaju Katli Jelly Points.)",
+            combiBonus: {
+                name: "Parrot Dada",
+                image: "https://cdn.wikimg.net/en/cookierunwiki/images/3/31/Parrot_dada.png"
+            },
+            costumes: [
+            ]
+        },
+        {
+            name: "Kaymak Cookie",
+            rarity: "S",
+            image: "https://cdn.wikimg.net/en/cookierunwiki/images/1/13/Cr_standard_kaymak.png",
+            ability: "Swings his Golden Honey Staff to crush obstacles during Blast. The green gauge charges over time. When it is full, Kaymak Cookie rides on his Milk Cloud, summoning decoys that crush obstacles and create Kaymak Jellies.",
+            combiBonus: {
+                name: "Honey Gourd",
+                image: "https://cdn.wikimg.net/en/cookierunwiki/images/4/49/Cr_standard_honey_gourd.png"
+            },
+            costumes: [
+            ]
+        },
+        {
+            name: "Kiwi Cookie",
+            rarity: "S",
+            image: "https://cdn.wikimg.net/en/cookierunwiki/images/4/47/Cr_standard_kiwi.png",
+            ability: "The green gauge charges over time. When it is full, Kiwi Cookie blasts ahead on his bike. Picking up Kiwi Fuel Jellies boosts bike speed for a short time and prolongs the duration of the ride. (Leveling up makes the gauge fill faster.)",
+            combiBonus: {
+                name: "Kiwi Bird",
+                image: "https://cdn.wikimg.net/en/cookierunwiki/images/8/81/Kiwi_Bird.png"
+            },
+            costumes: [
+            ]
+        },
+        {
+            name: "Lemon Cookie",
+            rarity: "S",
+            image: "https://cdn.wikimg.net/en/cookierunwiki/images/f/f5/Cr_standard_lemon.png",
+            ability: "The green gauge charges over time. When it is full, Lemon Cookie generates an Electro Shield, increasing Jelly points and slightly slowing HP drain. The shield's magnetic field attracts all Jellies, including Dark Moon Jellies. During Blast, Lemon Cookie crushes obstacles around him. (Leveling up makes the gauge fill faster.)",
+            combiBonus: {
+                name: "Electro Lemon",
+                image: "https://cdn.wikimg.net/en/cookierunwiki/images/0/06/Electro_Lemon.png"
+            },
+            costumes: [
+            ]
+        },
+        {
+            name: "Lime Cookie",
+            rarity: "S",
+            image: "https://cdn.wikimg.net/en/cookierunwiki/images/5/5d/Cr_standard_lime.png",
+            ability: "Catches beach balls and strikes them when Double Jumping, crushing obstacles and creating Lime Citrus Jellies. Striking a ball in Giant form creates more Lime Citrus Jellies. The green gauge charges over time. When it is full, Lime Cookie rides a giant beach ball in Blast Mode, crushing obstacles and earning Crush Points. (Leveling up makes the gauge fill faster.)",
+            combiBonus: {
+                name: "Mr. Limeguard",
+                image: "https://cdn.wikimg.net/en/cookierunwiki/images/6/6b/Mr._Limeguard.png"
+            },
+            costumes: [
+            ]
+        },
+        {
+            name: "Lotus Root Phantom Cookie",
+            rarity: "S",
+            image: "https://cdn.wikimg.net/en/cookierunwiki/images/8/84/Cr_standard_lotus_root_phantom.png",
+            ability: "Swings the crescent moon spade to make obstacles passable and create Skull Lotus Jellies when the small blue gauge is full. Each swing slightly charges the green gauge. When the green gauge is full, Lotus Root Phantom Cookie transforms into a Lotus Phantom and rushes ahead quickly while passing through obstacles.",
+            combiBonus: {
+                name: "Lotus Sitter",
+                image: "https://cdn.wikimg.net/en/cookierunwiki/images/8/82/Cr_standard_lotus_sitter.png"
+            },
+            costumes: [
+            ]
+        },
+        {
+            name: "Macaron Cookie",
+            rarity: "S",
+            image: "https://cdn.wikimg.net/en/cookierunwiki/images/8/87/Cr_standard_macaron.png",
+            ability: "The green gauge charges over time. When it is full, Macaron Cookie leads the Macaron Parade. During the parade, the Macaron Animals run along creating Macaron Jellies and crushing obstacles, earning Crush Points and extra Jelly Points. (Leveling up makes the gauge fill faster.)",
+            combiBonus: {
+                name: "Castanets",
+                image: "https://cdn.wikimg.net/en/cookierunwiki/images/8/8e/Castanets.png"
+            },
+            costumes: [
+            ]
+        },
+        {
+            name: "Manggaetteok Cookie",
+            rarity: "S",
+            image: "https://cdn.wikimg.net/en/cookierunwiki/images/e/ec/Cr_standard_manggaetteok.png",
+            ability: "The green gauge charges over time. When it is full, Manggaetteok Cookie spreads out her Manggae Leaf to soar into the air. Creates Manggaetteok Jellies and Wind Jellies (up to 10) while gliding. Picking up Wind Jellies prolongs the gliding.",
+            combiBonus: {
+                name: "Manggae Snail",
+                image: "https://cdn.wikimg.net/en/cookierunwiki/images/4/4b/Cr_standard_manggae_snail_pet.png"
+            },
+            costumes: [
+            ]
+        },
+        {
+            name: "Marshmallow Bunny Cookie",
+            rarity: "S",
+            image: "https://cdn.wikimg.net/en/cookierunwiki/images/c/c5/Cr_standard_marshmallow_bunny.png",
+            ability: "Periodically summons Bunny Tunnel Portals that restore a small amount of HP and trigger Blast while creating Coins and Marshmallow Jellies. Entering a Giant Bunny Tunnel Portal leads to a magical world full of Coins and Jellies, where multiple jumps and magnetic effect are active.",
+            combiBonus: {
+                name: "Soft Egg Bunny",
+                image: "https://cdn.wikimg.net/en/cookierunwiki/images/6/68/Pet87_shop.png"
+            },
+            costumes: [
+                { name: "Retro Marshmallow", image: "https://cdn.wikimg.net/en/cookierunwiki/images/a/af/Cr_retro_marshmallow_run.gif" },
+                { name: "Starlight Marshmallow", image: "https://cdn.wikimg.net/en/cookierunwiki/images/e/e1/Cr_starlight_marshmallow_run.gif" }
+            ]
+        },
+        {
+            name: "Mint Choco Cookie",
+            rarity: "S",
+            image: "https://cdn.wikimg.net/en/cookierunwiki/images/0/01/Cr_standard_mint_choco.png",
+            ability: "Plays the violin to create Coins. Avoiding collisions with obstacles for a given time increases running speed and generates more Coins. Colliding with an obstacle resets to the default speed and causes greater damage. (Leveling up increases the amount of Coins generated.) (Special music plays when running with Mint Choco Cookie.)",
+            combiBonus: {
+                name: "Ms. Do-Re-Mi, Mr. Fa-Sol-La-Si",
+                image: "https://cdn.corenexis.com/f/Lah6DOvhD4H.png"
+            },
+            costumes: [
+            ]
+        },
+        {
+            name: "Moon Rabbit Cookie",
+            rarity: "S",
+            image: "https://cdn.wikimg.net/en/cookierunwiki/images/5/56/Cr_standard_moon_rabbit.png",
+            ability: "The green gauge charges over time. When it is full, Moon Rabbit Cookie transforms into a giant Rice Cake Bunny. In this form, landing from a Jump stomps up Honey Rice Cake Jellies. Giant Rice Cake Bunny gets bigger and jumps become higher as time goes by.",
+            combiBonus: {
+                name: "Moon Mortar",
+                image: "https://cdn.wikimg.net/en/cookierunwiki/images/8/8b/Moon_Mortar.png"
+            },
+            costumes: [
+            ]
+        },
+        {
+            name: "Ninja Cookie",
+            rarity: "S",
+            image: "https://cdn.wikimg.net/en/cookierunwiki/images/2/28/Cr_standard_ninja.png",
+            ability: "Multi Jump (up to 10)",
+            combiBonus: {
+                name: "Little Ghost",
+                image: "https://cdn.wikimg.net/en/cookierunwiki/images/c/cd/Little_Ghost.png"
+            },
+            costumes: [
+            ]
+        },
+        {
+            name: "Onion Cookie",
+            rarity: "S",
+            image: "https://cdn.wikimg.net/en/cookierunwiki/images/7/7d/Cr_standard_onion.png",
+            ability: "The green gauge charges over time. When it is full, Onion Cookie enters a Haunted House. Passes through obstacles earning Evasion Points while in the house. (Leveling up makes the gauge fill faster.)",
+            combiBonus: {
+                name: "Onion Fish",
+                image: "https://cdn.wikimg.net/en/cookierunwiki/images/9/94/Onion_Fish.png"
+            },
+            costumes: [
+            ]
+        },
+        {
+            name: "Orange Cookie",
+            rarity: "S",
+            image: "https://cdn.wikimg.net/en/cookierunwiki/images/c/ca/Cr_standard_orange.png",
+            ability: "Periodically creates a Tennis Ball Jelly that can be picked up to smash using a double jump. The ball then bounces around crushing obstacles and creating Orange Citrus Jellies. While in the air, the Slide button turns into a Smash button. Tapping it triggers an even stronger bounce. Frantically smashes tennis balls while in Blast Mode. (Leveling up increases the frequency of tennis balls appearing.)",
+            combiBonus: {
+                name: "Mini Orange Mouse",
+                image: "https://cdn.wikimg.net/en/cookierunwiki/images/c/c0/Crob_standard_mini_orange_mouse.png"
+            },
+            costumes: [
+            ]
+        },
+        {
+            name: "Pancake Cookie",
+            rarity: "S",
+            image: "https://cdn.wikimg.net/en/cookierunwiki/images/4/45/Cr_standard_pancake.png",
+            ability: "The green gauge charges over time. When it is full, Pancake Cookie starts flying. Acorn Jellies and Sunflower Jellies appear while in flight. Picking up Sunflower Jellies creates Sunflower Seed Jellies. (Leveling up makes the gauge fill faster.)",
+            combiBonus: {
+                name: "Pancake Frisbee",
+                image: "https://cdn.wikimg.net/en/cookierunwiki/images/c/c0/Crob_standard_pancake_frisbee.png"
+            },
+            costumes: [
+            ]
+        },
+        {
+            name: "Peach Cookie",
+            rarity: "S",
+            image: "https://cdn.wikimg.net/en/cookierunwiki/images/4/40/Cr_standard_peach.png",
+            ability: "The green gauge charges over time. When it is full, Peach Cookie enters a bamboo forest to fight the Bamboo Bandits. Each downed Bandit grants points, with consecutive hits offering even more points. The mysterious aura of the bamboo forest allows Peach Cookie to perform up to 6 Multi Jumps. (Leveling up makes the gauge fill faster.)",
+            combiBonus: {
+                name: "Panda Dumpling",
+                image: "https://cdn.wikimg.net/en/cookierunwiki/images/a/ae/Panda_Dumpling.png"
+            },
+            costumes: [
+            ]
+        },
+        {
+            name: "Peppermint Cookie",
+            rarity: "S",
+            image: "https://cdn.wikimg.net/en/cookierunwiki/images/a/a1/Cr_standard_peppermint.png",
+            ability: "The green gauge charges over time. When it is full, Peppermint Cookie blows the conch shell to call upon the Peppermint Whale. The Peppermint Whale creates Splash Jellies as it makes its appearance, swimming with Peppermint Cookie on its back. While riding the whale, the Jump and Slide buttons call dolphins to gather Jellies instead. (The Peppermint Whale counts as a riding skill. Leveling up makes the gauge fill faster.",
+            combiBonus: {
+                name: "Paper Boat Sailor",
+                image: "https://cdn.wikimg.net/en/cookierunwiki/images/1/11/Paper_Boat_Sailor.png"
+            },
+            costumes: [
+            ]
+        },
+        {
+            name: "Pink Choco Cookie",
+            rarity: "S",
+            image: "https://cdn.wikimg.net/en/cookierunwiki/images/1/17/Cr_standard_pink_choco.png",
+            ability: "The green gauge charges over time. When it is full, Pink Choco Cookie shoots a Heart Beam that creates Pink Bonbon Jellies and crushes obstacles. (Leveling up makes the gauge fill faster.)",
+            combiBonus: {
+                name: "Pink Candy",
+                image: "https://cdn.wikimg.net/en/cookierunwiki/images/c/c6/Pink_Candy.png"
+            },
+            costumes: [
+            ]
+        },
+        {
+            name: "Pirate Cookie",
+            rarity: "S",
+            image: "https://cdn.wikimg.net/en/cookierunwiki/images/e/eb/Cr_standard_pirate.png",
+            ability: "Revives as Ghost Pirate (with up to 160 HP)",
+            combiBonus: {
+                name: "Giggle Bomb",
+                image: "https://cdn.wikimg.net/en/cookierunwiki/images/6/67/Giggle_Bomb.png"
+            },
+            costumes: [
+            ]
+        },
+        {
+            name: "Pistachio Cookie",
+            rarity: "S",
+            image: "https://cdn.wikimg.net/en/cookierunwiki/images/4/42/Cr_standard_pistachio.png",
+            ability: "The green gauge charges over time. When it is full, Pistachio Cookie performs a long Blast. At the end of the Blast, a small amount of HP is restored. Receives minimal damage from collisions thanks to her tough shell armor, but as a result HP drain is a little faster. (Leveling up causes the gauge to fill faster.)",
+            combiBonus: {
+                name: "Pistachio Firefly",
+                image: "https://cdn.wikimg.net/en/cookierunwiki/images/5/5d/Pistachio_Firefly.png"
+            },
+            costumes: [
+            ]
+        },
+        {
+            name: "Potato Salad Cookie",
+            rarity: "S",
+            image: "https://cdn.wikimg.net/en/cookierunwiki/images/4/4d/Cr_standard_potato_salad.png",
+            ability: "Periodically throws various carpets that create Coins and fill the green gauge a little. When the gauge is full, Potato Salad Cookie rides on his delivery bike as boiled potatoes and mayonnaise spread across the floor. Riding over them creates Coins. Landing on them from a jump creates even more Coins.",
+            combiBonus: {
+                name: "Tater Trader",
+                image: "https://cdn.wikimg.net/en/cookierunwiki/images/6/6a/Pet94_shop.png"
+            },
+            costumes: [
+            ]
+        },
+        {
+            name: "Prophet Cookie",
+            rarity: "S",
+            image: "https://cdn.wikimg.net/en/cookierunwiki/images/e/e6/Cr_standard_prophet.png",
+            ability: "His prophecies always come true.",
+            combiBonus: {
+                name: "Purple Candle",
+                image: "https://cdn.wikimg.net/en/cookierunwiki/images/0/06/Purple_Candle.png"
+            },
+            costumes: [
+            ]
+        },
+        {
+            name: "Red Bean Cookie",
+            rarity: "S",
+            image: "https://cdn.wikimg.net/en/cookierunwiki/images/6/6c/Cr_standard_red_bean.png",
+            ability: "Treat Fish Jelly appear while running. The green gauge charges over time. When it is full, Red Bean Cookie rides his Penguin Sled. The speed of his sled depends on the number of gathered Fish Treat Jellies. (Penguin Sled counts as a riding skill.)",
+            combiBonus: {
+                name: "Sweet Rice Seal",
+                image: "https://cdn.wikimg.net/en/cookierunwiki/images/f/f8/Sweet_Rice_Seal.png"
+            },
+            costumes: [
+            ]
+        },
+        {
+            name: "Red Pepper Cookie",
+            rarity: "S",
+            image: "https://cdn.wikimg.net/en/cookierunwiki/images/d/dd/Muay_Thai_Cookie.png",
+            ability: "Small chance of crushing obstacles on collision instead of taking damage. When his rage gauge is filled, he's on fire and crushes all obstacles. Revives out of sheer willpower after running out of HP once. Earns extra Crush Points. (Leveling up increases the anoumt of HP on Revive.)",
+            combiBonus: {
+                name: "Paprika Punching Bag",
+                image: "https://cdn.wikimg.net/en/cookierunwiki/images/6/6b/Paprika_Punching_Bag.png"
+            },
+            costumes: [
+            ]
+        },
+        {
+            name: "Rockstar Cookie",
+            rarity: "S",
+            image: "https://cdn.wikimg.net/en/cookierunwiki/images/4/43/Cr_standard_rockstar.png",
+            ability: "Slide Blast releases Note Jellies that can be collected for points. Slide Blast is charged by sliding. A fully charged Slide Blast crushes nearby obstacles.",
+            combiBonus: {
+                name: "Spotlight Fan",
+                image: "https://cdn.wikimg.net/en/cookierunwiki/images/6/6b/Crob_standard_spotlight_fan.png"
+            },
+            costumes: [
+            ]
+        },
+        {
+            name: "Roll Cake Cookie",
+            rarity: "S",
+            image: "https://cdn.wikimg.net/en/cookierunwiki/images/f/f8/Cr_standard_roll_cake.png",
+            ability: "The green gauge charges over time. When it is full, Double Jumping causes Roll Cake Cookie to slam down his hammer, crushing obstacles and creating Spare Part Jellies. Collecting 34 Spare Part Jellies summons the Road Roller for riding in Blast Mode (Road Roller counts as a riding skill.)",
+            combiBonus: {
+                name: "Light Bros",
+                image: "https://cdn.wikimg.net/en/cookierunwiki/images/5/5d/Light_Brothers.png"
+            },
+            costumes: [
+            ]
+        },
+        {
+            name: "Scallion Kimchi Cookie",
+            rarity: "S",
+            image: "https://cdn.wikimg.net/en/cookierunwiki/images/c/c1/Cr_standard_scallion_kimchi.png",
+            ability: "Periodically performs sword slashes to crush obstacles and fill the green gauge. When the gauge is full, Scallion Kimchi Cookie charges forward while slashing obstacles in her way. Scallion Kimchi Bear Jellies spawn wherever Scallion Kimchi Cookie crushes obstacles. (Leveling up increases Crush Points.)",
+            combiBonus: {
+                name: "Lady Mudang",
+                image: "https://cdn.wikimg.net/en/cookierunwiki/images/6/64/Pet95_shop.png"
+            },
+            costumes: [
+            ]
+        },
+        {
+            name: "Sikhye Cookie",
+            rarity: "S",
+            image: "https://cdn.wikimg.net/en/cookierunwiki/images/c/c7/Cr_standard_sikhye.png",
+            ability: "The green gauge charges over time. When it is full, Sikhye Cookie builds a house out of Baduk Stone Jellies. Winning the gambit by collecting most of the Sealed White Stone Jellies creates a White Masterful Gambit Stone. Throwing this stone crushes obstacles earning Crush Points and triggers coin fireworks.",
+            combiBonus: {
+                name: "Elder Black Rice, Elder White Rice",
+                image: "https://cdn.corenexis.com/f/F9fCa7ydYLG.png"
+            },
+            costumes: [
+            ]
+        },
+        {
+            name: "Skating Queen Cookie",
+            rarity: "S",
+            image: "https://cdn.wikimg.net/en/cookierunwiki/images/a/ae/Cr_standard_skating_queen.png",
+            ability: "Earns Performance Points for Double Jumps, Blast Jellies, and Bonus Time.",
+            combiBonus: {
+                name: "Snow Blossom",
+                image: "https://cdn.wikimg.net/en/cookierunwiki/images/7/79/Snow_Blossom.png"
+            },
+            costumes: [
+            ]
+        },
+        {
+            name: "Snow Sugar Cookie",
+            rarity: "S",
+            image: "https://cdn.wikimg.net/en/cookierunwiki/images/3/32/Cr_standard_snow_sugar.png",
+            ability: "Summons Snow Cones that destroy obstacles and create Snow Blossom Jellies when the small blue gauge is full. Gathering Snow Blossom Jellies fills the green gauge. Once it is full, the Great Snow King appears and causes a snowstorm. Riding the Great Snow King restores a small amount of HP. (Great Snow King counts as a riding skill.)",
+            combiBonus: {
+                name: "Snow Globe",
+                image: "https://cdn.wikimg.net/en/cookierunwiki/images/b/b7/Snow_Globe.png"
+            },
+            costumes: [
+            ]
+        },
+        {
+            name: "Soda Cookie",
+            rarity: "S",
+            image: "https://cdn.wikimg.net/en/cookierunwiki/images/b/b0/Cr_standard_soda.png",
+            ability: "Gathering HP Potions triggers cool Soda Waves. Blast Mode is triggered while riding the waves on his surfboard, obstacles are swept away by the waves, and collecting Jellies awards bonus points. (Leveling up increases the duration of the waves.)",
+            combiBonus: {
+                name: "Lemon Slice",
+                image: "https://cdn.wikimg.net/en/cookierunwiki/images/4/4d/Lemon_Slice.png"
+            },
+            costumes: [
+            ]
+        },
+        {
+            name: "Special Force Cookie",
+            rarity: "S",
+            image: "https://cdn.wikimg.net/en/cookierunwiki/images/d/d7/Cr_standard_special_force.png",
+            ability: "Shoots star candies that crush some obstacles and, when collected, earn points. More obstacles can be crushed with each upgrade.",
+            combiBonus: {
+                name: "AWOL Cracker",
+                image: "https://cdn.wikimg.net/en/cookierunwiki/images/1/1a/AWOL_Cracker.png"
+            },
+            costumes: [
+            ]
+        },
+        {
+            name: "Strawberry Shortcake Cookie",
+            rarity: "S",
+            image: "https://cdn.wikimg.net/en/cookierunwiki/images/c/cb/Cr_standard_strawberry_shortcake.png",
+            ability: "Periodicaly creates Dog Chew Jellies that trigger Blast on all fours. Each Dog Chew Jelly fills the green gauge a little. When it is full, Strawberry Shortcake Cookie rides a Giant Cake Hound and turns nearby Jellies into Cake Slice Jellies. (Giant Cake Hound counts as a riding skill.)",
+            combiBonus: {
+                name: "Tiny Cake Hound",
+                image: "https://cdn.wikimg.net/en/cookierunwiki/images/5/5d/Little_Cake_Hound.png"
+            },
+            costumes: [
+            ]
+        },
+        {
+            name: "Sujeonggwa Cookie",
+            rarity: "S",
+            image: "https://cdn.wikimg.net/en/cookierunwiki/images/2/2e/Cr_standard_sujeonggwa.png",
+            ability: "The green gauge charges over time. When it is full, Sujeonggwa Cookie builds a house out of Budak Stone Jellies. Winning the gambit by collecting most of the Sealed Black Stone Jellies creates a Black Masterful Gambit Stone. Throwing this stone crushes obstacles, earns Crush Points, and triggers coin fireworks.",
+            combiBonus: {
+                name: "Elder White Rice, Elder Black Rice",
+                image: "https://cdn.corenexis.com/f/0gft4hioVhu.png"
+            },
+            costumes: [
+            ]
+        },
+        {
+            name: "Vampire Cookie",
+            rarity: "S",
+            image: "https://cdn.wikimg.net/en/cookierunwiki/images/a/a9/Cr_standard_vampire.png",
+            ability: "Transforms into a swift Grape Bat when the green bar is full. As a bat, Vampire Cookie can pass through obstacles, earning Evasion Points, but must keep flapping his wings to stay above the ground. Occasionally extracts Grape Juice Drops from obstacles to restore HP, but HP drain is faster. (Leveling up makes the gauge fill faster.)",
+            combiBonus: {
+                name: "Oak Barrel",
+                image: "https://cdn.wikimg.net/en/cookierunwiki/images/3/33/Oak_Barrel.png"
+            },
+            costumes: [
+            ]
+        },
+        {
+            name: "Werewolf Cookie",
+            rarity: "S",
+            image: "https://cdn.wikimg.net/en/cookierunwiki/images/f/f6/Cr_standard_werewolf.png",
+            ability: "The green gauge charges over time (the lower the HP, the faster). When it is full, Werewolf Cookie changes into wolf form to crush obstacles, earning Crush Points. Careful: Werewolf Cookie can still fall into pits while in wolf form. (Leveling up makes the gauge fill faster and increases the amount of Crush Points.)",
+            combiBonus: {
+                name: "Furball Pup",
+                image: "https://cdn.wikimg.net/en/cookierunwiki/images/0/07/Furball_Pup.png"
+            },
+            costumes: [
+            ]
+        },
+        {
+            name: "White Choco Cookie",
+            rarity: "S",
+            image: "https://cdn.wikimg.net/en/cookierunwiki/images/5/51/Cr_standard_white_choco.png",
+            ability: "Sliding charges two gauges. Standing up when the small gauge is full crushes nearby obstacles. Standing up when the big gauge is full triggers Blast Mode for a short distance. At the end of Blast Mode, obstacles in a large area are crushed. All obstacles crushed by White Choco Cookie's skill turn into White Choco Jelly. The small gauge fills faster at higher running speed.",
+            combiBonus: {
+                name: "Pocket Watch Referee",
+                image: "https://cdn.wikimg.net/en/cookierunwiki/images/8/82/Pocket_Watch_Referee.png"
+            },
+            costumes: [
+            ]
+        },
+        {
+            name: "White Kimchi Cookie",
+            rarity: "S",
+            image: "https://cdn.wikimg.net/en/cookierunwiki/images/6/60/Cr_standard_white_kimchi.png",
+            ability: "Catching flying White Kimchi Rolls attaches talismans to surrounding obstacles to make it possible to pass them for Evasion Points. Collecting a certain number of White Kimchi Rolls summons Cabbage Spirits that can be passed through for Evasion Points. (Leveling up increases Evasion Points.)",
+            combiBonus: {
+                name: "Kimchi Bell",
+                image: "https://cdn.wikimg.net/en/cookierunwiki/images/1/11/Pet96_shop.png"
+            },
+            costumes: [
+            ]
+        },
+        {
+            name: "Wizard Cookie",
+            rarity: "S",
+            image: "https://cdn.wikimg.net/en/cookierunwiki/images/3/35/Cr_standard_wizard.png",
+            ability: "Casts Magic Spells that can crush obstacles and create Jellies. Leveling up reduces the time between spells.",
+            combiBonus: {
+                name: "Book of Wizdom",
+                image: "https://cdn.wikimg.net/en/cookierunwiki/images/d/d4/Book_of_Wizdom.png"
+            },
+            costumes: [
+            ]
+        },
+        {
+            name: "Coffee Cookie",
+            rarity: "A",
+            image: "https://cdn.wikimg.net/en/cookierunwiki/images/e/eb/Cr_standard_coffee.png",
+            ability: "Increases HP recovery from potions (up to 29%).",
+            combiBonus: {
+                name: "Mocha Delight",
+                image: "https://cdn.wikimg.net/en/cookierunwiki/images/3/3c/Mocha_Delight_LINE.png"
+            },
+            costumes: [
+            ]
+        },
+        {
+            name: "Knight Cookie",
+            rarity: "A",
+            image: "https://cdn.wikimg.net/en/cookierunwiki/images/a/a8/Cr_standard_knight.png",
+            ability: "Runs faster and longer after collecting Blast Jellies. (Counts as a riding skill.)",
+            combiBonus: {
+                name: "Dragon's Tail",
+                image: "https://cdn.wikimg.net/en/cookierunwiki/images/6/6a/Crob_standard_dragon%27s_tail.png"
+            },
+            costumes: [
+            ]
+        },
+        {
+            name: "Muscle cookie",
+            rarity: "A",
+            image: "https://cdn.wikimg.net/en/cookierunwiki/images/4/49/Cr_standard_muscle.png",
+            ability: "Chance to crush obstacles on collision (up to 75%)",
+            combiBonus: {
+                name: "Dumbbell Twins",
+                image: "https://cdn.wikimg.net/en/cookierunwiki/images/f/fd/Dumbbell_Twins.png"
+            },
+            costumes: [
+            ]
+        },
+        {
+            name: "Princess Cookie",
+            rarity: "A",
+            image: "https://cdn.wikimg.net/en/cookierunwiki/images/8/86/Cr_standard_princess.png",
+            ability: "Less HP loss when colliding with an obstable (up to 50%)",
+            combiBonus: {
+                name: "Princess's Locket",
+                image: "https://cdn.wikimg.net/en/cookierunwiki/images/0/0e/Crob_standard_princess%27s_locket.png"
+            },
+            costumes: [
+            ]
+        },
+        {
+            name: "Skater Cookie",
+            rarity: "A",
+            image: "https://cdn.wikimg.net/en/cookierunwiki/images/9/96/Cr_standard_skater.png",
+            ability: "Faster base speed (up to 35%)",
+            combiBonus: {
+                name: "Lucky Dice Bros",
+                image: "https://cdn.wikimg.net/en/cookierunwiki/images/6/69/Lucky_Dice_Bros.png"
+            },
+            costumes: [
+            ]
+        },
+        {
+            name: "Zombie Cookie",
+            rarity: "A",
+            image: "https://cdn.wikimg.net/en/cookierunwiki/images/e/e9/Cr_standard_zombie.png",
+            ability: "Revives after running out of HP (up to 8 times with 17 HP)",
+            combiBonus: {
+                name: "Brain Gum",
+                image: "https://cdn.wikimg.net/en/cookierunwiki/images/8/80/Brain_Gum.png"
+            },
+            costumes: [
+            ]
+        },
+        {
+            name: "Buttercream Choco Cookie",
+            rarity: "B",
+            image: "https://cdn.wikimg.net/en/cookierunwiki/images/f/f7/Cr_standard_buttercream_choco.png",
+            ability: "More Coins (up to 25%)",
+            combiBonus: {
+                name: "Dust Unicorn",
+                image: "https://cdn.wikimg.net/en/cookierunwiki/images/2/2c/Dust_unicorn.png"
+            },
+            costumes: [
+            ]
+        },
+        {
+            name: "Cloud Cookie",
+            rarity: "B",
+            image: "https://cdn.wikimg.net/en/cookierunwiki/images/7/75/Cr_standard_cloud.png",
+            ability: "Increases Power Jelly duration (up to 35%).",
+            combiBonus: {
+                name: "Rainbow's End",
+                image: "https://cdn.wikimg.net/en/cookierunwiki/images/f/f5/Rainbow%27s_End.png"
+            },
+            costumes: [
+            ]
+        },
+        {
+            name: "Cream Cookie",
+            rarity: "B",
+            image: "https://cdn.wikimg.net/en/cookierunwiki/images/6/6b/Cr_standard_cream.png",
+            ability: "Slows HP drain (up to 17%).",
+            combiBonus: {
+                name: "Cozy Yarn",
+                image: "https://cdn.wikimg.net/en/cookierunwiki/images/3/3a/Cozy_Yarn.png"
+            },
+            costumes: [
+            ]
+        },
+        {
+            name: "Strawberry Cookie",
+            rarity: "B",
+            image: "https://cdn.wikimg.net/en/cookierunwiki/images/a/a8/Cr_standard_strawberry.png",
+            ability: "Longer Bonus Time.",
+            combiBonus: {
+                name: "Flowercopter",
+                image: "https://cdn.wikimg.net/en/cookierunwiki/images/3/3a/Flowercopter.png"
+            },
+            costumes: [
+            ]
+        },
+        {
+            name: "GingerBrave",
+            rarity: "C",
+            image: "https://cdn.wikimg.net/en/cookierunwiki/images/6/6d/Cr_standard_gingerbrave.png",
+            ability: "Not just a running Cookie. He can Jump, Double Jump, and Slide, too!",
+            combiBonus: {
+                name: "Choco Drop + Loyal Cute Servant",
+                image: "https://cdn.corenexis.com/f/t8gjZPsLYAG.png"
+            },
+            costumes: [
+                { name: "Celestial Emperor (Kingdom Illustration)", image: "https://cdn.wikimg.net/en/cookierunwiki/images/6/68/Celestial_emperor_illustration.png" }
+            ]
+        },
+        {
+            name: "GingerBright",
+            rarity: "C",
+            image: "https://cdn.wikimg.net/en/cookierunwiki/images/2/2b/Cr_standard_gingerbright.png",
+            ability: "Earns more XP (up to 12%).",
+            combiBonus: {
+                name: "Cheese Drop",
+                image: "https://cdn.wikimg.net/en/cookierunwiki/images/3/30/Cheese_Drop.png"
+            },
+            costumes: [
+            ]
+        }
+    ];
+
+    function displayCookies(cookies) {
+        const counterSpan = document.getElementById('counterNumber');
+        if (counterSpan) {
+            counterSpan.innerText = cookies.length;
+        }
+        const grid = document.getElementById('cookieGrid');
+        grid.innerHTML = ""; 
+
+        if(cookies.length === 0) {
+            grid.innerHTML = "<p style='grid-column: 1/-1; text-align:center;'>No Cookies fit that description. What else can you think of about them?</p>";
+            return;
+        }
+
+        cookies.forEach(cookie => {
+            let costumesHTML = '';
+            if(cookie.costumes && cookie.costumes.length > 0) {
+                cookie.costumes.forEach(costume => {
+                    costumesHTML += `
+                        <div class="costume-item">
+                            <img class="costume-img" src="${costume.image}" alt="${costume.name}">
+                            <div class="costume-name">${costume.name}</div>
+                        </div>
+                    `;
+                });
+            } else {
+                costumesHTML = '<p style="font-size:12px; color:#aaa; margin:0;">No costumes added yet! Maybe later?</p>';
+            }
+
+            const card = document.createElement('div');
+            const rarityClass = `rarity-${cookie.rarity.toLowerCase().replace(/\+/g, '-plus').replace(/\s+/g, '-')}`;
+            
+            card.className = 'cookie-card';
+            card.innerHTML = `
+                <div class="cookie-hero">
+                    <span class="rarity-badge ${rarityClass}">${cookie.rarity}</span>
+                    <img class="cookie-img" src="${cookie.image}" alt="${cookie.name}">
+                </div>
+                <div class="cookie-info">
+                    <h2 style="margin: 0 0 10px 0; font-size: 20px;">${cookie.name}</h2>
+                    
+                    <div class="ability-section">
+                        <div class="ability-title">Ability</div>
+                        <div class="ability-desc">${cookie.ability}</div>
+                    </div>
+
+                    <div class="combi-section">
+                        <img class="combi-img" src="${cookie.combiBonus.image}" alt="Pet Combi">
+                        <div class="combi-details">
+                            <div class="combi-label">Combi Bonus</div>
+                            <div class="combi-name">${cookie.combiBonus.name}</div>
+                        </div>
+                    </div>
+
+                    <div class="costume-heading">Costumes</div>
+                    <div class="costume-list">${costumesHTML}</div>
+                </div>
+            `;
+            grid.appendChild(card);
+        });
+    }
+
+    document.getElementById('searchInput').addEventListener('input', function(e) {
+        const query = e.target.value.toLowerCase();
+        const filtered = cookieDatabase.filter(cookie => 
+            cookie.name.toLowerCase().includes(query) ||
+            cookie.rarity.toLowerCase().includes(query) ||
+            cookie.combiBonus.name.toLowerCase().includes(query)
+        );
+        displayCookies(filtered);
+    });
+
+    displayCookies(cookieDatabase);
+</script>
+</body>
+</html>

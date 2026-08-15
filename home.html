@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="https://cdn.wikimg.net/en/cookierunwiki/images/thumb/b/bb/Cc_head_blueberry_bird.png/48px-Cc_head_blueberry_bird.png">
+    <title>Cookie Run Databases!</title>
+    <link href="https://fonts.googleapis.com/css2?family=Didact+Gothic&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #f7f1e3;
+            --card-bg: #ffffff;
+            --text-color: #2c3e50;
+            --accent-color: #ae00ff;
+            --border-radius: 12px;
+        }
+
+        body {
+            font-family: 'Didact Gothic', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 40px 20px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        h1 {
+            color: #ae00ff;
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+
+        .directory-container {
+            max-width: 900px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 20px;
+        }
+
+        .nav-card {
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: 20px;
+            text-decoration: none;
+            color: var(--text-color);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+            border: 2px solid #e0e0e0;
+            text-align: center;
+            transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .nav-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--accent-color);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.12);
+        }
+
+        .nav-img {
+            width: 80px;
+            height: 80px;
+            object-fit: contain;
+            margin-bottom: 15px;
+        }
+
+        .nav-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 8px;
+            color: #ae00ff;
+        }
+
+        .nav-desc {
+            font-size: 13px;
+            color: #7f8c8d;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Cookie Run Database Collection</h1>
+        <p>1 Website, 6 Databases, and many, many, MANY Cookies!</p>
+    </header>
+
+    <div class="directory-container">
+        <a href="classic.html" class="nav-card">
+            <img class="nav-img" src="https://www.devsisters.com/_next/image?url=%2Fimage%2Fgames%2Fgames-cookierun-en.webp&w=1200&q=75">
+            <div class="nav-title">Cookie Run: Classic Database</div>
+            <div class="nav-desc">Based off the 3rd game in the franchise! Play it or not, it always will come first.</div>
+        </a>
+
+        <a href="crumble.html" class="nav-card">
+            <img class="nav-img" src="https://www.devsisters.com/_next/image?url=%2Fimage%2Fgames%2Fgames-crumble.en.webp&w=1200&q=75">
+            <div class="nav-title">Cookie Run: Crumble Database</div>
+            <div class="nav-desc">This game is the baby of the group! Although small, not the smallest! *cough cough* OVENSMASH *cough cough*</div>
+        </a>
+
+        <a href="index.html" class="nav-card">
+            <img class="nav-img" src="https://www.devsisters.com/_next/image?url=%2Fimage%2Fgames%2Fgames-live-game-2.webp&w=1200&q=75">
+            <div class="nav-title">Cookie Run: Kingdom Database</div>
+            <div class="nav-desc">This is the definition of alternate universes! Ancients, Beasts, Divine Beasts, and the wonderful Okchun Cookie? Goodness!</div>
+        </a>
+
+        <a href="limited-edition.html" class="nav-card">
+            <img class="nav-img" src="https://studiokingdom.co.kr/assets/images/page/game/cn/game-cnkingdom-banner-e78959a2ca.png">
+            <div class="nav-title">Limited Edition</div>
+            <div class="nav-desc">You'll miss them when they're gone! (Except Dark Cherry Cookie. Check the Crumble Database.)</div>
+        </a>
+
+        <a href="cookie-sticks.html" class="nav-card">
+            <img class="nav-img" src="https://cdn.corenexis.com/f/RkldRKwXAJ3.jpg">
+            <div class="nav-title">100 Cookie Sticks</div>
+            <div class="nav-desc">Long ago when there were only 100 Cookies on this website, 100 Cookie sticks were baked! Come here to learn about them! (They have a wonderful amount of butter!)</div>
+        </a>
+
+        <a href="fanmade.html" class="nav-card">
+            <img class="nav-img" src="https://cdn.corenexis.com/f/5gPRZogqwgC.webp">
+            <div class="nav-title">Cookie Run Fanmade Database</div>
+            <div class="nav-desc">Oh, you have Cookie ideas? Send them over! (If you don't, feel free to look at others' Cookie ideas!)</div>
+        </a>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,1030 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="https://cdn.wikimg.net/en/cookierunwiki/images/thumb/b/ba/Cc_rarity_ssr.png/60px-Cc_rarity_ssr.png">
+    <title>Cookie Run: Crumble Database</title>
+    <link href="https://fonts.googleapis.com/css2?family=Didact+Gothic&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #f7f1e3;
+            --card-bg: #ffffff;
+            --text-color: #2c3e50;
+            --accent-color: #ffb142;
+            --border-radius: 12px;
+        }
+
+        body {
+            font-family: 'Didact Gothic', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 20px;
+            letter-spacing: 0.5px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        h1 {
+            margin-bottom: 5px;
+            color: #ae00ff;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .search-box {
+            width: 100%;
+            padding: 12px;
+            font-size: 16px;
+            border: 2px solid #ccae62;
+            border-radius: var(--border-radius);
+            margin-bottom: 30px;
+            box-sizing: border-box;
+        }
+
+        .cookie-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 25px;
+        }
+
+        .cookie-card {
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            overflow: hidden;
+            border: 1px solid #e0e0e0;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .cookie-hero {
+            position: relative;
+            background: #f1f2f6;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .cookie-img {
+            max-width: 130px;
+            height: auto;
+            object-fit: contain;
+        }
+
+        .rarity-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            color: white;
+            padding: 4px 12px;
+            font-size: 12px;
+            font-weight: bold;
+            border-radius: 20px;
+            text-transform: uppercase;
+        }
+
+        .rarity-c { background-color: #2c2c59; }
+        .rarity-u { background-color: #11b8b8; }
+        .rarity-r { background-color: #5b5bb5; }
+        .rarity-sr { background-color: #fc0865; }
+        .rarity-ssr { background-color: #f1c40f; }
+        .rarity-tssr-legendary { background-color: #02e8af; }
+        .rarity-tssr-alternative { background-color: #ff0000; }
+
+        .cookie-info {
+            padding: 20px;
+            flex-grow: 1;
+        }
+
+        .cookie-meta {
+            font-size: 14px;
+            color: #7f8c8d;
+            margin-bottom: 15px;
+        }
+
+        .skill-section {
+            background: #f8f9fa;
+            border-left: 4px solid var(--accent-color);
+            padding: 10px;
+            border-radius: 4px;
+        }
+
+        .skill-name {
+            font-weight: bold;
+            font-size: 14px;
+            margin-bottom: 4px;
+            color: #2c3e50;
+        }
+
+        .skill-desc {
+            font-size: 13px;
+            color: #57606f;
+        }
+
+        .custom-dropdown {
+          position: relative;
+          display: inline-block;
+        }
+
+        .menu-btn {
+          background-color: #ff94b9;
+          color: white;
+          padding: 10px 18px;
+          font-size: 16px;
+          font-weight: bold;
+          border-radius: 8px;
+          border: none;
+          outline: none;
+          cursor: pointer;
+        }
+
+        .menu-btn:hover {
+          background-color: #e87fa4;
+        }
+
+        .menu-items {
+          display: none;
+          position: absolute;
+          top: 100%;
+          left: 0;
+          margin-top: 6px;
+          background-color: #ffffff;
+          min-width: 180px;
+          border-radius: 8px;
+          box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15);
+          z-index: 999;
+          overflow: hidden;
+        }
+
+        .menu-items a {
+          color: #333333;
+          padding: 12px 16px;
+          text-decoration: none;
+          display: block;
+          font-family: sans-serif;
+          font-size: 14px;
+        }
+
+        .menu-items a:hover {
+          background-color: #f5f5f5;
+        }
+
+        .custom-dropdown:hover .menu-items {
+          display: block;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <div class="custom-dropdown">
+          <button class="menu-btn">Menu &#9660;</button>
+          <div class="menu-items">
+            <a href="home.html">Menu</a>
+          </div>
+        </div>
+        <h1>Cookie Run: Crumble Database</h1>
+        <p>Wondering which Cookies are in Cookie Run: Crumble or not? Come find out here!</p>
+        <div id="cookieCounter" style="margin-top: 10px; margin-bottom: 20px; font-weight: bold; color: #c300ff; background: #000; display: inline-block; padding: 4px 15px; border-radius: 15px; border: 1px solid #f5026b; font-size: 14px;">
+            Total Cookies: <span id="counterNumber">0</span>
+        </div>
+        <input type="text" id="searchInput" class="search-box" placeholder="Search Cookies by name, type, element, or rarity...">
+    </header>
+
+    <div class="cookie-grid" id="cookieGrid"></div>
+</div>
+
+<script>
+    const cookieDatabase = [
+        {
+            name: "Oven Wanderer Cookie",
+            rarity: "TSSR Alternative",
+            type: "Charge",
+            element: "Fire",
+            image: "https://cdn.wikimg.net/en/cookierunwiki/images/thumb/8/80/Cookie-portrait-oven-wanderer.png/1024px-Cookie-portrait-oven-wanderer.png",
+            skill: {
+                name: "Brave Slash",
+                description: "Deals damage to the enemy with fiery sword techniques. Charges toward enemies with high ATK, dealing damage to enemies in path. The flames in the Cookie's wake deal damage to nearby enemies. After charging, causes an explosion on the ground, dealing damage to nearby enemies."
+            }
+        },
+        {
+            name: "Wind Archer Cookie",
+            rarity: "TSSR Legendary",
+            type: "Ranged",
+            element: "Grass",
+            image: "https://cdn.wikimg.net/en/cookierunwiki/images/3/33/Cc_illustration_wind_archer.png",
+            skill: {
+                name: "Last Wind",
+                description: "Fires an Arrow of Gale, dealing damage to enemies. Fires Last Wind, dealing damage to enemies in a straight line."
+            }
+        },
+        {
+            name: "Cool Mint Cookie",
+            rarity: "SSR",
+            type: "Charge",
+            element: "Water",
+            image: "https://cdn.wikimg.net/en/cookierunwiki/images/5/5f/Cc_illustration_cool_mint.png",
+            skill: {
+                name: "Implant Excavation",
+                description: "Stabs with drill, dealing damage to enemies. Digs up ground between enemies, knocking them back while dealing damage, and summons skulls from the excavated ground."
+            }
+        },
+        {
+            name: "Cream Puff Cookie",
+            rarity: "SSR",
+            type: "Ranged",
+            element: "Light",
+            image: "https://cdn.wikimg.net/en/cookierunwiki/images/f/f0/Cc_illustration_cream_puff.png",
+            skill: {
+                name: "Jellius Extremus!",
+                description: "Deals damage to enemies with a jelly whirlwind."
+            }
+        },
+        {
+            name: "Cream Soda Cookie",
+            rarity: "SSR",
+            type: "Charge",
+            element: "Water",
+            image: "https://cdn.wikimg.net/en/cookierunwiki/images/8/82/Cc_illustration_cream_soda.png",
+            skill: {
+                name: "Cream Soda Blade",
+                description: "Swings sword, dealing damage to enemies. Sends out waves, dealing damage to surrounding enemies and granting Range Synergy to allies."
+            }
+        },
+        {
+            name: "Dark Choco Cookie",
+            rarity: "SSR",
+            type: "Tank",
+            element: "Dark",
+            image: "https://cdn.wikimg.net/en/cookierunwiki/images/0/0a/Cc_illustration_dark_choco.png",
+            skill: {
+                name: "Dark Sword Strike",
+                description: "Causes lightning to strike down, dealing damage to enemies while knocking them back and reducing DEF."
+            }
+        },
+        {
+            name: "Espresso Cookie",
+            rarity: "SSR",
+            type: "Ranged",
+            element: "Grass",
+            image: "https://cdn.wikimg.net/en/cookierunwiki/images/a/a6/Cc_illustration_espresso.png",
+            skill: {
+                name: "Grinding",
+                description: "Fires coffee beans, dealing damage to enemies. Deals damage to enemies with a giant whirlwind blade. Then blows enemies away with a black hole while dealing damage."
+            }
+        },
+        {
+            name: "Ion Cookie Robot",
+            rarity: "SSR",
+            type: "Tank",
+            element: "Water",
+            image: "https://cdn.wikimg.net/en/cookierunwiki/images/d/d3/Cc_illustration_ion_cookie_robot.png",
+            skill: {
+                name: "Ion Shield",
+                description: "Charges forward, dealing damage to enemies in path and granting shields to self and low-HP Allies. After some time, transforms while granting shields to all allies and reducing damage taken."
+            }
+        },
+        {
+            name: "Madeleine Cookie",
+            rarity: "SSR",
+            type: "Tank",
+            element: "Light",
+            image: "https://cdn.wikimg.net/en/cookierunwiki/images/e/ea/Cc_illustration_madeleine.png",
+            skill: {
+                name: "Commander's Blade",
+                description: "Unleashes a sword slash, pushing back and dealing damage to enemies ahead."
+            }
+        },
+        {
+            name: "Melon Soda Cookie",
+            rarity: "SSR",
+            type: "Ranged",
+            element: "Water",
+            image: "https://cdn.wikimg.net/en/cookierunwiki/images/6/63/Cc_illustration_melon_soda.png",
+            skill: {
+                name: "Soda Blast",
+                description: "Rapidly fires gun forward, dealing damage to enemies."
+            }
+        },
+        {
+            name: "Milk Cookie's Crunchy Strong Pediatrician",
+            rarity: "SSR",
+            type: "Support",
+            element: "Light",
+            image: "https://cdn.wikimg.net/en/cookierunwiki/images/3/32/Cc_illustration_milk_cookies_crunchy_strong_pediatrician.png",
+            skill: {
+                name: "Gentle Remedy",
+                description: "Heals allies with circling Bear Jellies, grants increased ATK and Duration Synergy."
+            }
+        },
+        {
+            name: "Milky Way Cookie",
+            rarity: "SSR",
+            type: "Ranged",
+            element: "Light",
+            image: "https://cdn.wikimg.net/en/cookierunwiki/images/5/5b/Cc_illustration_milky_way.png",
+            skill: {
+                name: "Sugarcloud Express",
+                description: "Throws star candy, dealing damage to enemies. Summons a dream train that knocks back and deals damage to enemies."
+            }
+        },
+        {
+            name: "Nameless Cake Hound",
+            rarity: "SSR",
+            type: "Tank",
+            element: "Fire",
+            image: "https://cdn.wikimg.net/en/cookierunwiki/images/d/de/Cc_illustration_nameless_cake_hound.png",
+            skill: {
+                name: "Giant Flame Slash",
+                description: "Swings sword, knocking back surrounding enemies while dealing damage. Reduces damage taken by nearby allies."
+            }
+        },
+        {
+            name: "Pomegranate Cookie",
+            rarity: "SSR",
+            type: "Support",
+            element: "Dark",
+            image: "https://cdn.wikimg.net/en/cookierunwiki/images/8/81/Cc_illustration_pomegranate.png",
+            skill: {
+                name: "Pomegranate Magic",
+                description: "Uses a red beam to increase Ally's Skill AMP and grant Projectile Speed Synergy."
+            }
+        },
+        {
+            name: "Schwarzwälder",
+            rarity: "SSR",
+            type: "Tank",
+            element: "Fire",
+            image: "https://cdn.wikimg.net/en/cookierunwiki/images/d/dc/Cc_illustration_schwarzwalder.png",
+            skill: {
+                name: "Choco Chip Hammer",
+                description: "Jumps and slams down with hammer, dealing damage to enemies to the front and stunning them."
+            }
+        },
+        {
+            name: "Scorpion Cookie",
+            rarity: "SSR",
+            type: "Ranged",
+            element: "Fire",
+            image: "https://cdn.wikimg.net/en/cookierunwiki/images/4/4d/Cc_illustration_scorpion.png",
+            skill: {
+                name: "Venom Sting",
+                description: "Throws poison darts, dealing damage to enemies. Scatters poison darts ahead, dealing Damage over Time to enemies."
+            }
+        },
+        {
+            name: "Skating Queen Cookie",
+            rarity: "SSR",
+            type: "Charge",
+            element: "Water",
+            image: "https://cdn.wikimg.net/en/cookierunwiki/images/7/73/Cc_illustration_skating_queen.png",
+            skill: {
+                name: "A Perfect Performance",
+                description: "Spins on ice, dealing damage to enemies in path. Increases CRIT DMG for allies who step on the ice and grants Chain Synergy."
+            }
+        },
+        {
+            name: "Space Doughnut's Royal Excellence",
+            rarity: "SSR",
+            type: "Support",
+            element: "Light",
+            image: "https://cdn.wikimg.net/en/cookierunwiki/images/2/2d/Cc_illustration_space_doughnuts_royal_excellence.png",
+            skill: {
+                name: "Doughnut Beam",
+                description: "Fires a beam, dealing damage to enemies and transforming them into doughnuts."
+            }
+        },
+        {
+            name: "Strawberry Crepe Cookie",
+            rarity: "SSR",
+            type: "Tank",
+            element: "Light",
+            image: "https://cdn.wikimg.net/en/cookierunwiki/images/b/b3/Cc_illustration_strawberry_crepe.png",
+            skill: {
+                name: "Crepe Crasher",
+                description: "Swings giant crepe arms, pushing back enemies ahead while dealing damage."
+            }
+        },
+        {
+            name: "Strawberry Shortcake Cookie",
+            rarity: "SSR",
+            type: "Charge",
+            element: "Grass",
+            image: "https://cdn.wikimg.net/en/cookierunwiki/images/6/64/Cc_illustration_strawberry_shortcake.png",
+            skill: {
+                name: "Giant Cake Hound",
+                description: "Summons Cake Hound, increasing Move SPD of nearby Allies and granting Pierce Synergy. Charges with Cake Hound, dealing damage to enemies in path."
+            }
+        },
+        {
+            name: "Toothpaste Cookie",
+            rarity: "SSR",
+            type: "Support",
+            element: "Grass",
+            image: "https://cdn.wikimg.net/en/cookierunwiki/images/f/fb/Cc_illustration_toothpaste.png",
+            skill: {
+                name: "Electronic Battlefield Orchestra",
+                description: "Swings bow, dealing damage to enemies. Pushes back enemies ahead with a shockwave and deals damage to enemies hit by musical notes. Restores HP to Allies hit by returning notes and grants Range Synergy."
+            }
+        },
+        {
+            name: "Twizzly Gummy Cookie",
+            rarity: "SSR",
+            type: "Ranged",
+            element: "Dark",
+            image: "https://cdn.wikimg.net/en/cookierunwiki/images/0/0d/Cc_illustration_twizzly_gummy.png",
+            skill: {
+                name: "Twizzly Beam",
+                description: "Fires chaining lightning, dealing damage to enemies."
+            }
+        },
+        {
+            name: "Vampire Cookie",
+            rarity: "SSR",
+            type: "Charge",
+            element: "Fire",
+            image: "https://cdn.wikimg.net/en/cookierunwiki/images/6/6a/Cc_illustration_vampire.png",
+            skill: {
+                name: "Vampirism",
+                description: "Throws juice, dealing damage to enemies. Transforms into a bat, dealing damage to high-ATK enemies and reducing Accuracy."
+            }
+        },
+        {
+            name: "Dr. Bones Cookie",
+            rarity: "SR",
+            type: "Support",
+            element: "Grass",
+            image: "https://cdn.wikimg.net/en/cookierunwiki/images/5/56/Cc_illustration_dr_bones.png",
+            skill: {
+                name: "Emergency CPR",
+                description: "Uses AED to restore HP to low-HP Allies. Chaining electric shocks deal damage to enemies and stun them."
+            }
+        },
+        {
+            name: "Dr. Wasabi Cookie",
+            rarity: "SR",
+            type: "Ranged",
+            element: "Grass",
+            image: "https://cdn.wikimg.net/en/cookierunwiki/images/thumb/0/08/Cc_illustration_dr_wasabi.png/800px-Cc_illustration_dr_wasabi.png",
+            skill: {
+                name: "Wasabi Syrup",
+                description: "Rapidly fires exploding wasabi, dealing damage to enemies ahead."
+            }
+        },
+        {
+            name: "Herb Cookie",
+            rarity: "SR",
+            type: "Support",
+            element: "Grass",
+            image: "https://cdn.wikimg.net/en/cookierunwiki/images/2/2d/Cc_illustration_herb.png",
+            skill: {
+                name: "Sunny Garden",
+                description: "Heals nearby allies with herbs and grants Volley Synergy."
+            }
+        },
+        {
+            name: "Lemon Cookie",
+            rarity: "SR",
+            type: "Ranged",
+            element: "Light",
+            image: "https://cdn.wikimg.net/en/cookierunwiki/images/8/83/Cc_illustration_lemon.png",
+            skill: {
+                name: "Lightning Cube",
+                description: "Fires Lightning Cubes, dealing damage to enemies."
+            }
+        },
+        {
+            name: "Licorice Cookie",
+            rarity: "SR",
+            type: "Tank",
+            element: "Dark",
+            image: "https://cdn.wikimg.net/en/cookierunwiki/images/b/ba/Cc_illustration_licorice.png",
+            skill: {
+                name: "Licorice Servants",
+                description: "Fires dark lightning, dealing damage to enemies and summoning Licorice Servants."
+            }
+        },
+        {
+            name: "Lime Cookie",
+            rarity: "SR",
+            type: "Support",
+            element: "Water",
+            image: "https://cdn.wikimg.net/en/cookierunwiki/images/8/8a/Cc_illustration_lime.png",
+            skill: {
+                name: "Beach Ball Surprise",
+                description: "Throws a beach ball, dealing damage to enemies. Pops the beach ball to restore HP to nearby allies, while lime slices fly out granting CRIT% increase and Chain Synergy."
+            }
+        },
+        {
+            name: "Macaron Cookie",
+            rarity: "SR",
+            type: "Support",
+            element: "Grass",
+            image: "https://cdn.wikimg.net/en/cookierunwiki/images/e/e2/Cc_illustration_macaron.png",
+            skill: {
+                name: "Mighty Macaron Parade",
+                description: "Deals damage to enemies as Macarons march forward, grants CRIT% increase to allies, and grants Range Synergy."
+            }
+        },
+        {
+            name: "Orange Cookie",
+            rarity: "SR",
+            type: "Support",
+            element: "Water",
+            image: "https://cdn.wikimg.net/en/cookierunwiki/images/1/17/Cc_illustration_orange.png",
+            skill: {
+                name: "Juicy Smash",
+                description: "Hits a ball, dealing damage to enemies. Deals damage to enemies with a refreshing serve, grants CRIT% Increase to Allies, and grants Multistrike Synergy."
+            }
+        },
+        {
+            name: "Pancake Cookie",
+            rarity: "SR",
+            type: "Ranged",
+            element: "Grass",
+            image: "https://cdn.wikimg.net/en/cookierunwiki/images/b/b1/Cc_illustration_pancake.png",
+            skill: {
+                name: "Take an Acorn!",
+                description: "Carpet bombs with acorns, dealing damage to enemies and reducing their DEF."
+            }
+        },
+        {
+            name: "Peach Cookie",
+            rarity: "SR",
+            type: "Charge",
+            element: "Fire",
+            image: "https://cdn.wikimg.net/en/cookierunwiki/images/8/80/Cc_illustration_peach.png",
+            skill: {
+                name: "Take an Acorn!",
+                description: "Carpet bombs with acorns, dealing damage to enemies and reducing their DEF."
+            }
+        },
+        {
+            name: "Popcorn Cookie",
+            rarity: "SR",
+            type: "Ranged",
+            element: "Light",
+            image: "https://cdn.wikimg.net/en/cookierunwiki/images/c/c8/Cc_illustration_popcorn.png",
+            skill: {
+                name: "Ready, Action!",
+                description: "Fires laser, dealing damage to enemies in a straight line."
+            }
+        },
+        {
+            name: "Rockstar Cookie",
+            rarity: "SR",
+            type: "Support",
+            element: "Fire",
+            image: "https://cdn.wikimg.net/en/cookierunwiki/images/c/c8/Cc_illustration_rockstar.png",
+            skill: {
+                name: "Legend of Rock",
+                description: "Fires musical notes, dealing damage to enemies. Grants shields to nearby allies through performance and grants Pierce Synergy."
+            }
+        },
+        {
+            name: "Rye Cookie",
+            rarity: "SR",
+            type: "Ranged",
+            element: "Fire",
+            image: "https://cdn.wikimg.net/en/cookierunwiki/images/thumb/3/3d/Cc_illustration_rye.png/800px-Cc_illustration_rye.png",
+            skill: {
+                name: "Showdown Time",
+                description: "Rapidly fires pistols, dealing damage to enemies ahead."
+            }
+        },
+        {
+            name: "Tiger Lily Cookie",
+            rarity: "SR",
+            type: "Charge",
+            element: "Grass",
+            image: "https://cdn.wikimg.net/en/cookierunwiki/images/b/b2/Cc_illustration_tiger_lily.png",
+            skill: {
+                name: "Tiger Pounce",
+                description: "Throws a spear, dealing damage to enemies. Mounts Buttercream Tiger and grants Volley Synergy to nearby allies. While in Tiger Rider state, deals damage to enemies with tiger claws."
+            }
+        },
+        {
+            name: "Witchberry Cookie",
+            rarity: "SR",
+            type: "Ranged",
+            element: "Dark",
+            image: "https://cdn.wikimg.net/en/cookierunwiki/images/9/91/Cc_illustration_witchberry.png",
+            skill: {
+                name: "Feline Ruckus",
+                description: "Spins blocks around, dealing damage to nearby enemies."
+            }
+        },
+        {
+            name: "Alchemist Cookie",
+            rarity: "R",
+            type: "Ranged",
+            element: "Water",
+            image: "https://cdn.wikimg.net/en/cookierunwiki/images/0/07/Cc_illustration_alchemist.png",
+            skill: {
+                name: "Clinical Trial",
+                description: "Throws reagents, dealing damage to enemies and granting Projectile Speed Synergy to allies."
+            }
+        },
+        {
+            name: "Bear Jelly Worker",
+            rarity: "R",
+            type: "Charge",
+            element: "Fire",
+            image: "https://cdn.wikimg.net/en/cookierunwiki/images/1/11/Cc_illustration_bear_jelly_worker.png",
+            skill: {
+                name: "Ultimate Strike",
+                description: "Thrusts fist forward, dealing damage to enemies."
+            }
+        },
+        {
+            name: "Berry Yogurt Cookie",
+            rarity: "R",
+            type: "Tank",
+            element: "Water",
+            image: "https://cdn.wikimg.net/en/cookierunwiki/images/a/af/Cc_illustration_berry_yogurt.png",
+            skill: {
+                name: "Yogurt Smash",
+                description: "Strikes ground with hammer, knocking back and dealing damage to surrounding enemies."
+            }
+        },
+        {
+            name: "Blackberry Cookie",
+            rarity: "R",
+            type: "Charge",
+            element: "Dark",
+            image: "https://cdn.wikimg.net/en/cookierunwiki/images/e/e8/Cc_illustration_blackberry.png",
+            skill: {
+                name: "Ghost Servants",
+                description: "Circling ghosts deal damage to enemies."
+            }
+        },
+        {
+            name: "Cheesecake Cookie",
+            rarity: "R",
+            type: "Support",
+            element: "Light",
+            image: "https://cdn.wikimg.net/en/cookierunwiki/images/c/c4/Cc_illustration_cheesecake.png",
+            skill: {
+                name: "Cheerful Invitation",
+                description: "Orbiting letters increase Allies' ATK and grant Volley Synergy."
+            }
+        },
+        {
+            name: "Cherry Cookie",
+            rarity: "R",
+            type: "Ranged",
+            element: "Fire",
+            image: "https://cdn.wikimg.net/en/cookierunwiki/images/d/dd/Cc_illustration_cherry.png",
+            skill: {
+                name: "Cherry Bomb",
+                description: "Throws cherry bombs, dealing damage to enemies."
+            }
+        },
+        {
+            name: "Cocoa Cookie",
+            rarity: "R",
+            type: "Tank",
+            element: "Water",
+            image: "https://cdn.wikimg.net/en/cookierunwiki/images/e/eb/Cc_illustration_cocoa.png",
+            skill: {
+                name: "Marshmallow Cocoa",
+                description: "Charges on a large cup, dealing damage to enemies in path and launching them. Damage taken reduced while charging."
+            }
+        },
+        {
+            name: "Dark Cherry Cookie",
+            rarity: "R",
+            type: "Charge",
+            element: "Fire",
+            image: "https://cdn.wikimg.net/en/cookierunwiki/images/2/2b/Cc_illustration_dark_cherry.png",
+            skill: {
+                name: "SLICE!",
+                description: "Swings sword, dealing damage to enemies."
+            }
+        },
+        {
+            name: "Grapevine Cookie",
+            rarity: "R",
+            type: "Support",
+            element: "Grass",
+            image: "https://cdn.wikimg.net/en/cookierunwiki/images/a/a5/Cc_illustration_grapevine.png",
+            skill: {
+                name: "Overly Rich Juice",
+                description: "Throws an oak barrel, dealing damage to enemies. Juice-filled barrels restore HP to low-HP allies and grant Rapid Fire Synergy."
+            }
+        },
+        {
+            name: "Lilac Cookie",
+            rarity: "R",
+            type: "Ranged",
+            element: "Dark",
+            image: "https://cdn.wikimg.net/en/cookierunwiki/images/0/0a/Cc_illustration_lilac.png",
+            skill: {
+                name: "Chakram Throw",
+                description: "Throws multiple chakrams, dealing damage to enemies."
+            }
+        },
+        {
+            name: "Poison Mushroom Cookie",
+            rarity: "R",
+            type: "Charge",
+            element: "Dark",
+            image: "https://cdn.wikimg.net/en/cookierunwiki/images/4/4c/Cc_illustration_poison_mushroom.png",
+            skill: {
+                name: "Poison Cloud",
+                description: "Releases poison, dealing damage to surrounding enemies."
+            }
+        },
+        {
+            name: "Space Doughnut",
+            rarity: "R",
+            type: "Ranged",
+            element: "Light",
+            image: "https://cdn.wikimg.net/en/cookierunwiki/images/a/af/Cc_illustration_space_doughnut.png",
+            skill: {
+                name: "Doughnut Beam",
+                description: "Fires a beam, dealing damage to enemies."
+            }
+        },
+        {
+            name: "Adventurer Cookie",
+            rarity: "U",
+            type: "Charge",
+            element: "Grass",
+            image: "https://cdn.wikimg.net/en/cookierunwiki/images/c/c4/Cc_illustration_adventurer.png",
+            skill: {
+                name: "Rope Master",
+                description: "Wraps enemy with high ATK with rope, dealing Damage over Time and stunning them."
+            }
+        },
+        {
+            name: "Angel Cookie",
+            rarity: "U",
+            type: "Support",
+            element: "Light",
+            image: "https://cdn.wikimg.net/en/cookierunwiki/images/thumb/0/04/Cc_illustration_angel.png/600px-Cc_illustration_angel.png",
+            skill: {
+                name: "Celestial Light",
+                description: "Heals low-HP allies with the power of Light and reduces Damage Taken."
+            }
+        },
+        {
+            name: "Cheerleader Cookie",
+            rarity: "U",
+            type: "Support",
+            element: "Water",
+            image: "https://cdn.wikimg.net/en/cookierunwiki/images/3/3d/Cc_illustration_cheerleader.png",
+            skill: {
+                name: "Cheering You On!",
+                description: "Summons cheerleaders, dealing damage to enemies in path and granting Duration Synergy to allies."
+            }
+        },
+        {
+            name: "Coffee Cookie",
+            rarity: "U",
+            type: "Support",
+            element: "Water",
+            image: "https://cdn.wikimg.net/en/cookierunwiki/images/3/3a/Cc_illustration_coffee.png",
+            skill: {
+                name: "Care for Some Coffee?",
+                description: "Throws coffee, granting incresed Accuracy to allies and granting Duration Synergy."
+            }
+        },
+        {
+            name: "Devil Cookie",
+            rarity: "U",
+            type: "Ranged",
+            element: "Dark",
+            image: "https://cdn.wikimg.net/en/cookierunwiki/images/c/cd/Cc_illustration_devil.png",
+            skill: {
+                name: "Candy Fork Toss",
+                description: "Throws spear, dealing damage to enemies and reducing their DEF."
+            }
+        },
+        {
+            name: "Gumball Cookie",
+            rarity: "U",
+            type: "Tank",
+            element: "Water",
+            image: "https://cdn.wikimg.net/en/cookierunwiki/images/thumb/7/70/Cc_illustration_gumball.png/600px-Cc_illustration_gumball.png",
+            skill: {
+                name: "Gumball Cannon",
+                description: "Shoots off gumballs, dealing area damage to enemies ahead. Reduces Movement Speed of enemies who step on the gum."
+            }
+        },
+        {
+            name: "Knight Cookie",
+            rarity: "U",
+            type: "Tank",
+            element: "Light",
+            image: "https://cdn.wikimg.net/en/cookierunwiki/images/thumb/b/bc/Cc_illustration_knight.png/599px-Cc_illustration_knight.png",
+            skill: {
+                name: "Cavalry Charge",
+                description: "Swings sword, dealing damage to surrounding enemies. Grants Range Synergy to nearby allies."
+            }
+        },
+        {
+            name: "Onion Cookie",
+            rarity: "U",
+            type: "Support",
+            element: "Dark",
+            image: "https://cdn.wikimg.net/en/cookierunwiki/images/1/1f/Cc_illustration_onion.png",
+            skill: {
+                name: "Unstoppable Tears",
+                description: "Zones off an area with tears, dealing damage to nearby enemies and their reducing ATK."
+            }
+        },
+        {
+            name: "Princess Cookie",
+            rarity: "U",
+            type: "Charge",
+            element: "Fire",
+            image: "https://cdn.wikimg.net/en/cookierunwiki/images/d/d5/Cc_illustration_princess.png",
+            skill: {
+                name: "Royal Swing",
+                description: "Swings staff, dealing damage to enemies ahead."
+            }
+        },
+        {
+            name: "Red Pepper Cookie",
+            rarity: "U",
+            type: "Charge",
+            element: "Fire",
+            image: "https://cdn.wikimg.net/en/cookierunwiki/images/b/be/Cc_illustration_red_pepper.png",
+            skill: {
+                name: "Burning Spirit",
+                description: "Kicks enemies, dealing damage. Burning Spirit deals damage to surrounding enemies."
+            }
+        },
+        {
+            name: "Zombie Cookie",
+            rarity: "U",
+            type: "Tank",
+            element: "Grass",
+            image: "https://cdn.wikimg.net/en/cookierunwiki/images/f/f5/Cc_illustration_zombie.png",
+            skill: {
+                name: "Braiiiiins",
+                description: "Charges forward, dealing damage to enemies in path. Revivies once upon death when Allies remain."
+            }
+        },
+        {
+            name: "Blueberry Bird",
+            rarity: "C",
+            type: "Support",
+            element: "Water",
+            image: "https://cdn.wikimg.net/en/cookierunwiki/images/e/e1/Cc_illustration_blueberry_bird.png",
+            skill: {
+                name: "Blueberry Wish Delivery",
+                description: "Sends birds to restore HP to low-HP allies and increase DEF."
+            }
+        },
+        {
+            name: "GingerBrave",
+            rarity: "C",
+            type: "Charge",
+            element: "Fire",
+            image: "https://cdn.wikimg.net/en/cookierunwiki/images/1/17/Cc_illustration_gingerbrave.png",
+            skill: {
+                name: "Brave Dash",
+                description: "Bravely charges forward, knocking back enemies in path while dealing damage."
+            }
+        },
+        {
+            name: "GingerBright",
+            rarity: "C",
+            type: "Charge",
+            element: "Light",
+            image: "https://cdn.wikimg.net/en/cookierunwiki/images/f/fc/Cc_illustration_gingerbright.png",
+            skill: {
+                name: "Jolly Candy",
+                description: "Swings candy, dealing damage to enemies and reducing their ATK."
+            }
+        },
+        {
+            name: "Muscle Cookie",
+            rarity: "C",
+            type: "Tank",
+            element: "Dark",
+            image: "https://cdn.wikimg.net/en/cookierunwiki/images/8/83/Cc_illustration_muscle.png",
+            skill: {
+                name: "Muscle King Power",
+                description: "Charges forward, dealing damage to enemies in his path. Uppercuts enemies at the end of his charge, launching them into the air."
+            }
+        },
+        {
+            name: "Ninja Cookie",
+            rarity: "C",
+            type: "Ranged",
+            element: "Dark",
+            image: "https://cdn.wikimg.net/en/cookierunwiki/images/f/f2/Cc_illustration_ninja.png",
+            skill: {
+                name: "Swift Strike",
+                description: "Throws several shuriken, dealing damage to enemies."
+            }
+        },
+        {
+            name: "Skater Cookie",
+            rarity: "C",
+            type: "Charge",
+            element: "Water",
+            image: "https://cdn.wikimg.net/en/cookierunwiki/images/2/2a/Cc_illustration_skater.png",
+            skill: {
+                name: "Rolling Faster",
+                description: "Charges forward, dealing damage to enemies in path."
+            }
+        },
+        {
+            name: "Strawberry Cookie",
+            rarity: "C",
+            type: "Charge",
+            element: "Fire",
+            image: "https://cdn.wikimg.net/en/cookierunwiki/images/0/0a/Cc_illustration_strawberry.png",
+            skill: {
+                name: "Stay Away...",
+                description: "Swings lollipop, dealing damage to surrounding enemies."
+            }
+        },
+        {
+            name: "Sugar Gnome",
+            rarity: "C",
+            type: "Charge",
+            element: "Grass",
+            image: "https://cdn.wikimg.net/en/cookierunwiki/images/7/7c/Cc_illustration_sugar_gnome.png",
+            skill: {
+                name: "Hammer of Revolution",
+                description: "Summons and detonates a Cookie House, dealing damage to enemies ahead."
+            }
+        },
+        {
+            name: "Wizard Cookie",
+            rarity: "C",
+            type: "Ranged",
+            element: "Light",
+            image: "https://cdn.wikimg.net/en/cookierunwiki/images/3/30/Cc_illustration_wizard.png",
+            skill: {
+                name: "Magic Storm",
+                description: "Summons lightning bolts, dealing damage to enemies."
+            }
+        }
+    ];
+
+    function displayCookies(cookies) {
+        const counterSpan = document.getElementById('counterNumber');
+        if (counterSpan) {
+            counterSpan.innerText = cookies.length;
+        }
+        const grid = document.getElementById('cookieGrid');
+        grid.innerHTML = ""; 
+
+        if(cookies.length === 0) {
+            grid.innerHTML = "<p style='grid-column: 1/-1; text-align:center;'>No Cookies fit that description.</p>";
+            return;
+        }
+
+        cookies.forEach(cookie => {
+            const card = document.createElement('div');
+            const rarityClass = `rarity-${cookie.rarity.toLowerCase().replace(/\+/g, '-plus').replace(/\s+/g, '-')}`;
+            
+            card.className = 'cookie-card';
+            card.innerHTML = `
+                <div class="cookie-hero">
+                    <span class="rarity-badge ${rarityClass}">${cookie.rarity}</span>
+                    <img class="cookie-img" src="${cookie.image}" alt="${cookie.name}">
+                </div>
+                <div class="cookie-info">
+                    <h2 style="margin: 0 0 5px 0; font-size: 20px;">${cookie.name}</h2>
+                    <div class="cookie-meta"><strong>${cookie.type}</strong> • ${cookie.element} Element</div>
+                    
+                    <div class="skill-section">
+                        <div class="skill-name">${cookie.skill.name}</div>
+                        <div class="skill-desc">${cookie.skill.description}</div>
+                    </div>
+                </div>
+            `;
+            grid.appendChild(card);
+        });
+    }
+
+    document.getElementById('searchInput').addEventListener('input', function(e) {
+        const query = e.target.value.toLowerCase();
+        const filtered = cookieDatabase.filter(cookie => 
+            cookie.name.toLowerCase().includes(query) ||
+            cookie.type.toLowerCase().includes(query) ||
+            cookie.element.toLowerCase().includes(query) ||
+            cookie.rarity.toLowerCase().includes(query)
+        );
+        displayCookies(filtered);
+    });
+
+    displayCookies(cookieDatabase);
+</script>
+</body>
+</html>

@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" href="https://cdn.wikimg.net/en/cookierunwiki/images/d/d1/App_icon_cookiewars.png">
+  <title>CookieWars???</title>
+  <link href="https://fonts.googleapis.com/css2?family=Didact+Gothic&display=swap" rel="stylesheet">
+  <style>
+    body {
+      background-color: #f7f1e3;
+      font-family: 'Didact Gothic', sans-serif;
+      margin: 0;
+      padding: 20px;
+      color: #333333;
+      text-align: center;
+    }
+
+    .custom-dropdown {
+      position: relative;
+      display: inline-block;
+      margin-bottom: 25px;
+    }
+
+    .menu-btn {
+      background-color: #ff94b9;
+      color: white;
+      padding: 10px 18px;
+      font-size: 16px;
+      font-weight: bold;
+      border-radius: 8px;
+      border: none;
+      outline: none;
+      box-shadow: none;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+
+    .menu-btn:hover {
+      background-color: #e87fa4;
+    }
+
+    .menu-items {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      margin-top: 6px;
+      background-color: #ffffff;
+      min-width: 180px;
+      border-radius: 8px;
+      box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15);
+      z-index: 999;
+      overflow: hidden;
+      text-align: left;
+    }
+
+    .menu-items a {
+      color: #333333;
+      padding: 12px 16px;
+      text-decoration: none;
+      display: block;
+      font-size: 14px;
+    }
+
+    .menu-items a:hover {
+      background-color: #f5f5f5;
+    }
+
+    .custom-dropdown:hover .menu-items {
+      display: block;
+    }
+
+    .showcase-container {
+      max-width: 900px;
+      margin: 0 auto;
+      background-color: #ffffff;
+      border-radius: 16px;
+      padding: 24px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+      border: 1px solid #f0e0d0;
+    }
+
+    .showcase-image {
+      width: 100%;
+      max-height: 550px;
+      object-fit: cover;
+      border-radius: 12px;
+      margin-bottom: 20px;
+    }
+
+    .showcase-title {
+      color: #9d00ff;
+      font-size: 2.2rem;
+      font-weight: bold;
+      margin-bottom: 15px;
+    }
+
+    .showcase-description {
+      font-size: 1.1rem;
+      line-height: 1.7;
+      color: #555555;
+      text-align: left;
+      background-color: #faf5eb;
+      padding: 20px 24px;
+      border-radius: 10px;
+      border-left: 5px solid #ff94b9;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="custom-dropdown">
+    <button class="menu-btn">Menu &#9660;</button>
+    <div class="menu-items">
+      <a href="home.html">Menu</a>
+    </div>
+  </div>
+
+  <div class="showcase-container">
+    
+    <img src="https://cdn.wikimg.net/en/cookierunwiki/images/5/53/Crob_cream_ferret_embarrassed.png" class="showcase-image">
+
+    <div class="showcase-title">Peekaboo! Oh, where did you go?</div>
+
+    <div class="showcase-description">
+      Cream Ferret Cookie lost the last known portal to CookieWars! Now there can't be a database about it! Hopefully the portal can be remade, right, Devsisters? - jadecookiiie (GitHub Username)
+    </div>
+
+  </div>
+
+</body>
+</html>

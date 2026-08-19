@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="https://cdn.wikimg.net/en/cookierunwiki/images/1/17/Cc_illustration_gingerbrave.png">
+    <title>Cookie Run Timeline</title>
+    <link href="https://fonts.googleapis.com/css2?family=Didact+Gothic&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #f7f1e3;
+            --card-bg: #ffffff;
+            --text-color: #2c3e50;
+            --purple-color: #ae00ff;
+            --line-color: #a3e635; 
+            --border-radius: 12px;
+        }
+
+        body {
+            font-family: 'Didact Gothic', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 40px 20px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        h1 {
+            color: var(--purple-color);
+            font-size: 36px;
+            margin-bottom: 10px;
+        }
+
+        .timeline-container {
+            max-width: 900px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+            position: relative;
+        }
+
+        .timeline-node {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+            position: relative;
+            text-decoration: none;
+            color: inherit;
+            transition: transform 0.2s ease;
+        }
+
+        .timeline-node:hover {
+            transform: translateX(8px);
+        }
+
+        .timeline-node:hover .info-box {
+            border-color: var(--purple-color);
+            box-shadow: 0 6px 14px rgba(174, 0, 255, 0.15);
+        }
+
+        .timeline-node:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            left: 50px;
+            top: 100px;
+            width: 6px;
+            height: 40px;
+            background-color: var(--line-color);
+            border-radius: 3px;
+        }
+
+        .icon-box {
+            width: 100px;
+            height: 100px;
+            background: var(--card-bg);
+            border: 3px solid var(--text-color);
+            border-radius: var(--border-radius);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            flex-shrink: 0;
+        }
+
+        .icon-box img {
+            max-width: 80px;
+            max-height: 80px;
+            object-fit: contain;
+        }
+
+        .info-box {
+            background: var(--card-bg);
+            border: 2px solid #e0e0e0;
+            border-radius: var(--border-radius);
+            padding: 15px 20px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+            flex-grow: 1;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .game-title {
+            font-size: 20px;
+            font-weight: bold;
+            color: var(--purple-color);
+            margin-bottom: 4px;
+        }
+
+        .release-year {
+            font-size: 14px;
+            font-weight: bold;
+            color: #7f8c8d;
+            margin-bottom: 8px;
+        }
+
+        .game-desc {
+            font-size: 14px;
+            color: #57606f;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Cookie Run Timeline</h1>
+        <p>Playable games are here, but there are also discontinued games here! Explore it all! In chronological order, of course.</p>
+    </header>
+
+    <div class="timeline-container">
+
+        <a href="https://jadecookiiie.github.io/cookie-run/break1and2.html" class="timeline-node" target="_blank">
+            <div class="icon-box">
+                <img src="https://cdn.wikimg.net/en/cookierunwiki/images/9/9c/OvenBreak_%282009%29.png">
+            </div>
+            <div class="info-box">
+                <div class="game-title">OvenBreak</div>
+                <div class="release-year">2009</div>
+                <div class="game-desc">The first game in the franchise! Somehow, we found a game that beat Classic! (Complimentary Skittles!)</div>
+            </div>
+        </a>
+
+        <a href="https://jadecookiiie.github.io/cookie-run/break1and2.html" class="timeline-node" target="_blank">
+            <div class="icon-box">
+                <img src="https://cdn.wikimg.net/en/cookierunwiki/images/thumb/c/c9/OvenBreak_2_Loading_Screen.png/1920px-OvenBreak_2_Loading_Screen.png">
+            </div>
+            <div class="info-box">
+                <div class="game-title">OvenBreak 2</div>
+                <div class="release-year">2012</div>
+                <div class="game-desc">A sequel so required, it was practically just an update to OvenBreak! Plus, what kind of Cookie would prefer Skittles over Bear Jellies?</div>
+            </div>
+        </a>
+
+        <a href="https://jadecookiiie.github.io/cookie-run/nearclassic.html" class="timeline-node" target="_blank">
+            <div class="icon-box">
+                <img src="https://cdn.wikimg.net/en/cookierunwiki/images/9/9b/CookieRun_for_Kakao_Happy_13th_Anniversary.png">
+            </div>
+            <div class="info-box">
+                <div class="game-title">Cookie Run for Kakao</div>
+                <div class="release-year">2013</div>
+                <div class="game-desc">Isn't it great? Korea has a new Cookie Run Game for Kakao! Many things are similar from the last game, but it's still wonderful!</div>
+            </div>
+        </a>
+
+        <a href="https://jadecookiiie.github.io/cookie-run/nearclassic.html" class="timeline-node" target="_blank">
+            <div class="icon-box">
+                <img src="https://cdn.wikimg.net/en/cookierunwiki/images/4/4c/LINE_Cookie_Run_Icon.png">
+            </div>
+            <div class="info-box">
+                <div class="game-title">LINE Cookie Run</div>
+                <div class="release-year">January 2014</div>
+                <div class="game-desc">Wow! Cookie Run for Kakao but global! G-good job, Devsisters!</div>
+            </div>
+        </a>
+
+        <a href="https://jadecookiiie.github.io/cookie-run/munjilminju.html" class="timeline-node" target="_blank">
+            <div class="icon-box">
+                <img src="https://cdn.wikimg.net/en/cookierunwiki/images/thumb/1/18/Cookie_Run_Munjil_Munjil_Title_Screen.png/800px-Cookie_Run_Munjil_Munjil_Title_Screen.png">
+            </div>
+            <div class="info-box">
+                <div class="game-title">Cookie Run: Munjil Munjil</div>
+                <div class="release-year">April 2014</div>
+                <div class="game-desc">Home to the Cookie heads! Finally, a new type of gameplay! Oh, it's discontinued? Oh...</div>
+            </div>
+        </a>
+
+        <a href="https://jadecookiiie.github.io/cookie-run/nearclassic.html" class="timeline-node" target="_blank">
+            <div class="icon-box">
+                <img src="https://cdn.wikimg.net/en/cookierunwiki/images/e/e1/Cookie_Run_QQ_Icon.png">
+            </div>
+            <div class="info-box">
+                <div class="game-title">QQ Cookie Run</div>
+                <div class="release-year">May 2014</div>
+                <div class="game-desc">The side-scrolling gameplay is back...! Now available in China! Nevermind, it's gone.</div>
+            </div>
+        </a>
+
+        <a href="https://jadecookiiie.github.io/cookie-run/databasecomingsoon.html" class="timeline-node" target="_blank">
+            <div class="icon-box">
+                <img src="https://cdn.wikimg.net/en/cookierunwiki/images/4/48/App_icon_ovenbreak.png">
+            </div>
+            <div class="info-box">
+                <div class="game-title">Cookie Run: OvenBreak</div>
+                <div class="release-year">2016</div>
+                <div class="game-desc">Cookie Run: OvenBreak! Although the same gameplay as almost all the previous games, they curently have the most Cookies of any Cookie Run game!</div>
+            </div>
+        </a>
+
+        <a href="https://jadecookiiie.github.io/cookie-run/cookiewars.html" class="timeline-node" target="_blank">
+            <div class="icon-box">
+                <img src="https://cdn.wikimg.net/en/cookierunwiki/images/d/d1/App_icon_cookiewars.png">
+            </div>
+            <div class="info-box">
+                <div class="game-title">CookieWars</div>
+                <div class="release-year">2018</div>
+                <div class="game-desc">Defend your tower... I think! I'm not able to find much info about it.</div>
+            </div>
+        </a>
+
+        <a href="https://jadecookiiie.github.io/cookie-run/databasecomingsoon.html" class="timeline-node" target="_blank">
+            <div class="icon-box">
+                <img src="https://cdn.wikimg.net/en/cookierunwiki/images/d/d8/Pw_appicon.png">
+            </div>
+            <div class="info-box">
+                <div class="game-title">Cookie Run: Puzzle World</div>
+                <div class="release-year">2020</div>
+                <div class="game-desc">The Puzzle gameplay is back, and technically discontinued, but still fully functional!</div>
+            </div>
+        </a>
+
+        <a href="https://jadecookiiie.github.io/cookie-run/index.html" class="timeline-node" target="_blank">
+            <div class="icon-box">
+                <img src="https://cdn.wikimg.net/en/cookierunwiki/images/e/e4/App_icon_kingdom.png">
+            </div>
+            <div class="info-box">
+                <div class="game-title">Cookie Run: Kingdom</div>
+                <div class="release-year">Global: 2021</div>
+                <div class="game-desc">Does Dark Enchantress Cookie think she got all the valuable Cookies? She still has the Ancients left!</div>
+            </div>
+        </a>
+
+        <a href="https://jadecookiiie.github.io/cookie-run/darkest.html" class="timeline-node" target="_blank">
+            <div class="icon-box">
+                <img src="https://cdn.wikimg.net/en/cookierunwiki/images/2/2d/CookieRunTheDarkestNight_Chapter1_Poster.png">
+            </div>
+            <div class="info-box">
+                <div class="game-title">Cookie Run: The Darkest Night</div>
+                <div class="release-year">November 2023</div>
+                <div class="game-desc">You'll think Wizard Cookie snuck into your home playing this game! How wonderful!</div>
+            </div>
+        </a>
+
+        <a href="https://jadecookiiie.github.io/cookie-run/index.html" class="timeline-node" target="_blank">
+            <div class="icon-box">
+                <img src="https://studiokingdom.co.kr/assets/images/page/game/cn/game-cnkingdom-banner-e78959a2ca.png">
+            </div>
+            <div class="info-box">
+                <div class="game-title">Cookie Run: Kingdom</div>
+                <div class="release-year">China: December 2023</div>
+                <div class="game-desc">Does Dark Enchantress Cookie think she got all the valuable Cookies? She still has the Ancients left, and two (so far) of the Divine Beasts have awakened!</div>
+            </div>
+        </a>
+
+        <a href="https://jadecookiiie.github.io/cookie-run/databasecomingsoon.html" class="timeline-node" target="_blank">
+            <div class="icon-box">
+                <img src="https://cdn.wikimg.net/en/cookierunwiki/images/c/cb/App_icon_witch%27s_castle.png">
+            </div>
+            <div class="info-box">
+                <div class="game-title">Cookie Run: Witch's Castle Blast</div>
+                <div class="release-year">March 2024</div>
+                <div class="game-desc">Pop Jellies and hear about the Witches! The ones that are Cookies, of course!</div>
+            </div>
+        </a>
+
+        <a href="https://jadecookiiie.github.io/cookie-run/databasecomingsoon.html" class="timeline-node" target="_blank">
+            <div class="icon-box">
+                <img src="https://cdn.wikimg.net/en/cookierunwiki/images/a/a8/App_icon_tower_of_adventures.png">
+            </div>
+            <div class="info-box">
+                <div class="game-title">Cookie Run: Tower of Adventures</div>
+                <div class="release-year">June 2024</div>
+                <div class="game-desc">The Cookie with the Shining Heart has come to save the Cookies in the tower! (I don't know what else to write :))</div>
+            </div>
+        </a>
+
+        <a href="https://jadecookiiie.github.io/cookie-run/nearclassic.html" class="timeline-node" target="_blank">
+            <div class="icon-box">
+                <img src="https://cdn.wikimg.net/en/cookierunwiki/images/0/0d/CookieRunIndia_Icon_5.png">
+            </div>
+            <div class="info-box">
+                <div class="game-title">Cookie Run: India</div>
+                <div class="release-year">December 2024</div>
+                <div class="game-desc">Yet another version of Cookie Run for Kakao for a specific place! When can we have one global again? The LINE version was discontinued!</div>
+            </div>
+        </a>
+
+        <a href="https://jadecookiiie.github.io/cookie-run/databasecomingsoon.html" class="timeline-node" target="_blank">
+            <div class="icon-box">
+                <img src="https://cdn.wikimg.net/en/cookierunwiki/images/9/9a/App_icon_ovensmash.png">
+            </div>
+            <div class="info-box">
+                <div class="game-title">Cookie Run: OvenSmash</div>
+                <div class="release-year">March 2026</div>
+                <div class="game-desc">A multiplayer game? YAS! Now my friend and I can defeat eachother with Cookies in 3D! (Toll House Cookies work too, they just crumble easier.)</div>
+            </div>
+        </a>
+
+        <a href="https://jadecookiiie.github.io/cookie-run/classic.html" class="timeline-node" target="_blank">
+            <div class="icon-box">
+                <img src="https://cdn.wikimg.net/en/cookierunwiki/images/2/27/App_icon_classic.png">
+            </div>
+            <div class="info-box">
+                <div class="game-title">Cookie Run: Classic</div>
+                <div class="release-year">June 2026</div>
+                <div class="game-desc">YARRRRRRRRRRRRRRR! JUST WHAT I WAS WISHING FORRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR! Cookie Run for Kakao is now (technically) available globally!</div>
+            </div>
+        </a>
+
+        <a href="https://jadecookiiie.github.io/cookie-run/crumble.html" class="timeline-node" target="_blank">
+            <div class="icon-box">
+                <img src="https://cdn.wikimg.net/en/cookierunwiki/images/0/06/App_icon_crumble.png">
+            </div>
+            <div class="info-box">
+                <div class="game-title">Cookie Run: Crumble</div>
+                <div class="release-year">July 2026</div>
+                <div class="game-desc">Even though this game has Cookies with a mind of their own, it's the baby of the group! Please be kind to it, because it doesn't have the smallest database! *cough cough* OVENSMASH *cough cough*</div>
+            </div>
+        </a>
+
+    </div>
+
+</body>
+</html>
